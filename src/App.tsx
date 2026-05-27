@@ -259,11 +259,19 @@ function Hero() {
           >
             {t('hero.title1')} <span className="italic font-normal text-brand-peach-dark">{t('hero.title2')}</span>
           </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.2 }}
+            className="text-sm md:text-base text-text-muted mt-6 max-w-2xl mx-auto font-light leading-relaxed hidden sm:block"
+          >
+            {t('hero.seoDesc')}
+          </motion.p>
           <motion.div
             initial={{ opacity: 0, width: 0 }}
             animate={{ opacity: 1, width: 80 }}
             transition={{ duration: 1.2, delay: 0.3 }}
-            className="h-[1px] bg-brand-peach-dark/30 mx-auto mt-6"
+            className="h-[1px] bg-brand-peach-dark/30 mx-auto mt-6 sm:mt-8"
           />
         </div>
 
@@ -784,9 +792,12 @@ function Contact() {
               <div className="w-12 h-12 rounded-full bg-brand-green-light/10 border border-brand-green-light/20 text-brand-peach-light flex items-center justify-center mb-2">
                  <MapPin strokeWidth={1} className="w-6 h-6" />
               </div>
-              <h3 className="text-3xl font-serif text-white">{CONTACT.address}</h3>
-              <p className="text-brand-green-light/80 font-light max-w-xs text-lg leading-relaxed">
-                {t('contact.locationDesc')}
+              <h3 className="text-2xl font-serif text-white sr-only">{t('nav.contact')}</h3>
+              <p className="text-brand-green-light/90 font-light max-w-xs text-lg leading-relaxed mt-2 text-center">
+                <strong className="text-white font-serif text-2xl font-normal tracking-wide block mb-2">Baan Thai Massage Galanta</strong>
+                Hody 1679<br/>
+                924 01 Galanta<br/>
+                Slovensko
               </p>
               
               <div className="pt-8 w-full flex flex-col gap-4">

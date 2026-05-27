@@ -131,7 +131,7 @@ export function CookiesPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-brand-green-dark/[0.02] border border-brand-green-light/10 p-6 rounded-2xl font-normal">
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Obchodné meno</p>
-                <p className="text-brand-green-dark font-medium font-serif">Zuzana Krúžliková - Kay</p>
+                <p className="text-brand-green-dark font-medium font-serif">Kanlaya Kruzlik</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Sídlo / miesto podnikania</p>
