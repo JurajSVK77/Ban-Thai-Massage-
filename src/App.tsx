@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { useTranslation } from "react-i18next";
 import { BaanLogo } from "./components/BaanLogo";
 import { CookieConsent } from "./components/CookieConsent";
 import { CookiesPage } from "./pages/CookiesPage";
@@ -144,6 +145,12 @@ const staggerContainer = {
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const nextLng = i18n.language === "sk" ? "en" : "sk";
+    i18n.changeLanguage(nextLng);
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -161,10 +168,14 @@ function Navbar() {
             </a>
             
             <div className="hidden md:flex items-center space-x-10">
-              <a href="#sluzby" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">Služby</a>
-              <a href="#cennik" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">Cenník</a>
-              <a href="#o-nas" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">O nás</a>
-              <a href="#kontakt" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">Kontakt</a>
+              <a href="#sluzby" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.services')}</a>
+              <a href="#cennik" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.pricing')}</a>
+              <a href="#o-nas" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.about')}</a>
+              <a href="#kontakt" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.contact')}</a>
+              
+              <button onClick={toggleLanguage} className="text-xs tracking-[0.15em] uppercase font-bold text-brand-green-dark hover:text-brand-peach-dark transition-colors cursor-pointer w-8">
+                {i18n.language === 'en' ? 'SK' : 'EN'}
+              </button>
               
               <motion.a 
                 href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
@@ -176,21 +187,26 @@ function Navbar() {
                 <div className="absolute inset-0 w-0 bg-brand-green transition-all duration-500 ease-out group-hover:w-full"></div>
                 <span className="relative flex items-center">
                   <Phone className="w-3 h-3 mr-2" />
-                  Zavolať
+                  {t('nav.call')}
                 </span>
               </motion.a>
             </div>
 
-            <button 
-              onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden relative z-50 text-brand-green-dark p-2"
-            >
-              <div className="relative w-6 h-5">
-                <span className={`absolute h-0.5 bg-current w-full transform transition-all duration-300 ${isOpen ? 'rotate-45 top-2' : 'top-0'}`} />
-                <span className={`absolute h-0.5 bg-current transform transition-all duration-300 top-2 ${isOpen ? 'w-0 opacity-0' : 'w-4'}`} />
-                <span className={`absolute h-0.5 bg-current w-full transform transition-all duration-300 ${isOpen ? '-rotate-45 top-2' : 'top-4'}`} />
-              </div>
-            </button>
+            <div className="flex items-center md:hidden gap-4">
+              <button onClick={toggleLanguage} className="text-xs tracking-[0.1em] uppercase font-bold text-brand-green-dark cursor-pointer z-50">
+                {i18n.language === 'en' ? 'SK' : 'EN'}
+              </button>
+              <button 
+                onClick={() => setIsOpen(!isOpen)}
+                className="relative z-50 text-brand-green-dark p-2"
+              >
+                <div className="relative w-6 h-5">
+                  <span className={`absolute h-0.5 bg-current w-full transform transition-all duration-300 ${isOpen ? 'rotate-45 top-2' : 'top-0'}`} />
+                  <span className={`absolute h-0.5 bg-current transform transition-all duration-300 top-2 ${isOpen ? 'w-0 opacity-0' : 'w-4'}`} />
+                  <span className={`absolute h-0.5 bg-current w-full transform transition-all duration-300 ${isOpen ? '-rotate-45 top-2' : 'top-4'}`} />
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
@@ -203,10 +219,10 @@ function Navbar() {
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 z-40 bg-bg-base/95 backdrop-blur-xl flex flex-col justify-center items-center space-y-8"
           >
-            <a href="#sluzby" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">Služby</a>
-            <a href="#cennik" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">Cenník</a>
-            <a href="#o-nas" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">O nás</a>
-            <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">Kontakt</a>
+            <a href="#sluzby" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.services')}</a>
+            <a href="#cennik" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.pricing')}</a>
+            <a href="#o-nas" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.about')}</a>
+            <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.contact')}</a>
             
             <motion.a 
               href={CONTACT.facebook}
@@ -218,7 +234,7 @@ function Navbar() {
               className="mt-8 px-8 py-4 bg-brand-peach-dark text-white text-xs uppercase tracking-widest font-bold rounded-full shadow-lg shadow-brand-peach-dark/20 text-center flex items-center justify-center gap-2"
             >
               <Facebook className="w-4 h-4" />
-              Sledujte nás na Facebooku
+              {t('nav.followUs')}
             </motion.a>
           </motion.div>
         )}
@@ -228,6 +244,7 @@ function Navbar() {
 }
 
 function Hero() {
+  const { t } = useTranslation();
   return (
     <section className="relative pt-32 pb-12 overflow-hidden bg-bg-base flex flex-col items-center justify-center">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
@@ -240,7 +257,7 @@ function Hero() {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light text-brand-green-dark tracking-wide leading-tight"
           >
-            Originálne thajské <span className="italic font-normal text-brand-peach-dark">masáže v Galante</span>
+            {t('hero.title1')} <span className="italic font-normal text-brand-peach-dark">{t('hero.title2')}</span>
           </motion.h1>
           <motion.div
             initial={{ opacity: 0, width: 0 }}
@@ -282,7 +299,7 @@ function Hero() {
             transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-brand-green-dark tracking-wider italic"
           >
-            Dotyk, ktorý vráti <span className="font-normal text-brand-peach-dark">rovnováhu.</span>
+            {t('hero.subtitle1')} <span className="font-normal text-brand-peach-dark">{t('hero.subtitle2')}</span>
           </motion.p>
         </div>
 
@@ -299,7 +316,7 @@ function Hero() {
             transition={{ type: "spring", stiffness: 400, damping: 15 }}
             className="w-full sm:w-auto text-center px-10 py-4 bg-brand-green-dark text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all shadow-lg hover:bg-brand-green hover:shadow-brand-green/30 cursor-pointer"
           >
-            Naše Služby
+            {t('hero.cta')}
           </motion.a>
           <motion.a 
             href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
@@ -309,7 +326,7 @@ function Hero() {
             className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 border border-brand-green text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-brand-green hover:text-white shadow-sm cursor-pointer"
           >
             <Phone className="w-4 h-4" />
-            Rezervovať termín
+            {t('hero.book')}
           </motion.a>
         </motion.div>
       </div>
@@ -318,6 +335,7 @@ function Hero() {
 }
 
 function Benefits() {
+  const { t } = useTranslation();
   return (
     <section className="relative z-20 px-6 md:px-12 hidden md:block mt-8">
       <div className="max-w-6xl mx-auto">
@@ -335,8 +353,8 @@ function Benefits() {
                 <usp.icon className="w-5 h-5" strokeWidth={1.5} />
               </div>
               <div>
-                <h3 className="text-xs uppercase tracking-widest font-bold text-text-dark mb-2">{usp.title}</h3>
-                <p className="text-xs text-text-muted leading-relaxed font-light">{usp.desc}</p>
+                <h3 className="text-xs uppercase tracking-widest font-bold text-text-dark mb-2">{t(`usps.usp${i + 1}.title`)}</h3>
+                <p className="text-xs text-text-muted leading-relaxed font-light">{t(`usps.usp${i + 1}.desc`)}</p>
               </div>
             </motion.div>
           ))}
@@ -347,6 +365,7 @@ function Benefits() {
 }
 
 function Services() {
+  const { t } = useTranslation();
   return (
     <section id="sluzby" className="py-32 bg-bg-base relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -358,8 +377,8 @@ function Services() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="text-center max-w-2xl mx-auto mb-24"
         >
-          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">Naša Ponuka</span>
-          <h2 className="text-5xl md:text-6xl font-serif text-brand-green-dark mb-6">Umenie relaxácie</h2>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">{t('services.label')}</span>
+          <h2 className="text-5xl md:text-6xl font-serif text-brand-green-dark mb-6">{t('services.title')}</h2>
           <motion.div 
              initial={{ width: 0 }}
              whileInView={{ width: 64 }}
@@ -430,7 +449,7 @@ function Services() {
                   }}
                   className="text-3xl font-serif text-text-dark mb-4"
                 >
-                  {service.title}
+                  {t(`services.s${i + 1}.title`)}
                 </motion.h3>
                 <motion.p 
                   variants={{
@@ -439,7 +458,7 @@ function Services() {
                   }}
                   className="text-text-muted font-light leading-relaxed mb-8"
                 >
-                  {service.description}
+                  {t(`services.s${i + 1}.desc`)}
                 </motion.p>
                 <motion.div
                   variants={{
@@ -448,7 +467,7 @@ function Services() {
                   }}
                 >
                   <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] font-bold text-brand-green-dark hover:text-brand-peach-dark transition-colors border-b border-transparent hover:border-brand-peach-dark pb-1">
-                    Rezervovať procedúru <ArrowRight className="w-3 h-3 ml-2" />
+                    {t('services.bookLabel')} <ArrowRight className="w-3 h-3 ml-2" />
                   </a>
                 </motion.div>
               </div>
@@ -461,6 +480,7 @@ function Services() {
 }
 
 function Pricing() {
+  const { t } = useTranslation();
   const [selectedDuration, setSelectedDuration] = useState<"all" | "30" | "60" | "90">("all");
 
   const filteredData = PRICING_DATA.filter((item) => {
@@ -484,11 +504,11 @@ function Pricing() {
           transition={{ duration: 0.8 }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">Cenník služieb</span>
-          <h2 className="text-5xl md:text-6xl font-serif text-brand-green-dark mb-6">Naša ponuka & Ceny</h2>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">{t('pricing.label')}</span>
+          <h2 className="text-5xl md:text-6xl font-serif text-brand-green-dark mb-6">{t('pricing.title')}</h2>
           <div className="w-16 h-[1px] bg-brand-green mx-auto mb-6"></div>
           <p className="text-text-muted font-light leading-relaxed">
-            Doprajte si hlboké uvoľnenie s našimi tradičnými terapiami. Všetky naše <strong className="font-semibold text-brand-peach-dark">90-minútové masáže</strong> sú teraz k dispozícii za ucelenú výnimočnú cenu <strong className="font-bold text-brand-peach-dark text-lg">56 €</strong> pre váš dokonalý oddych.
+            {t('pricing.desc1')} <strong className="font-semibold text-brand-peach-dark">{t('pricing.desc2')}</strong> {t('pricing.desc3')} <strong className="font-bold text-brand-peach-dark text-lg">{t('pricing.desc4')}</strong> {t('pricing.desc5')}
           </p>
         </motion.div>
 
@@ -505,7 +525,7 @@ function Pricing() {
               onClick={() => setSelectedDuration("all")}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "all" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
             >
-              Všetky
+              {t('pricing.all')}
             </button>
             <button
               onClick={() => setSelectedDuration("30")}
@@ -533,7 +553,7 @@ function Pricing() {
           
           <div className="space-y-2">
             <AnimatePresence mode="popLayout">
-              {filteredData.map((item) => (
+              {filteredData.map((item, index) => (
                 <motion.div
                   layout
                   initial={{ opacity: 0, y: 12 }}
@@ -545,16 +565,16 @@ function Pricing() {
                 >
                   <div className="flex-1 pr-6 mb-4 sm:mb-0">
                     <div className="flex items-center gap-3">
-                      <h3 className="text-xl md:text-2xl font-serif text-text-dark group-hover:text-brand-green-dark transition-colors">{item.name}</h3>
+                      <h3 className="text-xl md:text-2xl font-serif text-text-dark group-hover:text-brand-green-dark transition-colors">{t(`pricing.p${index + 1}.name`)}</h3>
                       {item.prices["90"] && selectedDuration === "all" && (
                         <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest bg-brand-peach-light/35 border border-brand-peach-dark/25 text-brand-peach-dark font-semibold">
-                          90 min len 56€
+                          {t('pricing.special')}
                         </span>
                       )}
                     </div>
                     {item.note && (
                       <p className="text-xs text-text-muted mt-1.5 font-light italic uppercase tracking-wider">
-                        ({item.note})
+                        ({t(`pricing.p${index + 1}.note`)})
                       </p>
                     )}
                   </div>
@@ -595,7 +615,7 @@ function Pricing() {
           {/* Reservation Call to Action inside the Pricing box */}
           <div className="mt-12 pt-8 border-t border-brand-green-light/15 text-center flex flex-col items-center">
             <p className="text-xs text-text-muted max-w-md mx-auto mb-6 leading-relaxed">
-              Všetky masáže odporúčame rezervovať vopred. Radi vás privítame v našom očarujúcom a útulnom salóne v Hody.
+              {t('pricing.bookingInfo')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md">
               <motion.a 
@@ -629,6 +649,7 @@ function Pricing() {
 }
 
 function About() {
+  const { t } = useTranslation();
   return (
     <section id="o-nas" className="py-32 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
@@ -660,20 +681,20 @@ function About() {
              transition={{ duration: 1 }}
              className="w-full lg:w-1/2 pl-0 lg:pl-10"
           >
-            <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">Náš Príbeh & Filozofia</span>
+            <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">{t('about.label')}</span>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-green-dark mb-8 leading-[1.1]">
-              Súkromná oáza <br/>v našej <span className="italic font-light">záhrade.</span>
+              {t('about.title1')} <br/>{t('about.title2')} <span className="italic font-light">{t('about.title3')}</span>
             </h2>
             
             <div className="space-y-6 text-text-muted font-light leading-relaxed text-lg">
               <p>
-                <strong>Baan Thai Massage</strong> vznikol ako splnený sen o pokojnom mieste, kde človek na chvíľu spomalí a dopraje si čas len pre seba. Náš útulný salón sme s láskou vytvorili priamo v tichej záhrade v Hodoch pri Galante — v súkromnom dizajnovom štúdiu, ktoré ponúka pokoj, diskrétnosť a atmosféru ďaleko od ruchu bežného sveta.
+                <strong>Baan Thai Massage</strong> {t('about.p1')}
               </p>
               <p>
-                O vaše pohodlie a regeneráciu sa stará výhradne certifikovaná thajská masérka Kay. Keďže pracuje samostatne a každému klientovi venuje individuálny prístup, každá procedúra je osobná, pokojná a prispôsobená vašim potrebám.
+                {t('about.p2')}
               </p>
               <p>
-                Počas masáže je celé štúdio vyhradené iba pre vás. Bez ruchu, bez čakania, bez anonymného prostredia veľkých salónov. Len vy, pokojná atmosféra a dotyk, ktorý pomáha telu aj mysli nájsť opäť rovnováhu. <strong className="text-brand-peach-dark font-semibold">Dotyk, ktorý vráti rovnováhu</strong>
+                {t('about.p3')} <strong className="text-brand-peach-dark font-semibold">{t('about.p4')}</strong>
               </p>
             </div>
             
@@ -682,8 +703,8 @@ function About() {
                   <Droplet className="w-6 h-6 text-brand-peach-dark" strokeWidth={1.5} />
                </div>
                <div>
-                  <h4 className="text-sm uppercase tracking-widest font-bold text-text-dark">Prémiové oleje</h4>
-                  <p className="text-xs text-text-muted mt-1">100% prírodné ingrediencie, ktoré vyživujú vašu pokožku.</p>
+                  <h4 className="text-sm uppercase tracking-widest font-bold text-text-dark">{t('about.featureTitle')}</h4>
+                  <p className="text-xs text-text-muted mt-1">{t('about.featureDesc')}</p>
                </div>
             </div>
           </motion.div>
@@ -695,6 +716,7 @@ function About() {
 }
 
 function Contact() {
+  const { t } = useTranslation();
   return (
     <section id="kontakt" className="py-24 bg-brand-green-dark relative overflow-hidden">
       {/* Decorative floral/leaf design on background */}
@@ -705,14 +727,14 @@ function Contact() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
         
         <div>
-          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-light mb-4 block">Kontakt</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-light mb-4 block">{t('contact.label')}</span>
           <h2 className="text-4xl md:text-6xl font-serif text-white mb-12 leading-[1.1]">
-            Naplánujte si <br/><span className="italic font-light text-brand-peach-light">svoj oddych</span>
+            {t('contact.title1')} <br/><span className="italic font-light text-brand-peach-light">{t('contact.title2')}</span>
           </h2>
           
           <div className="space-y-12">
              <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-4">Telefón / Rezervácie</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-4">{t('contact.phoneLabel')}</p>
                 <div className="flex flex-col gap-4">
                   <div className="group">
                     <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="text-3xl font-serif text-white hover:text-brand-peach-light transition-colors relative inline-block">
@@ -730,21 +752,23 @@ function Contact() {
              </div>
              
              <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-3">Emailová adresa</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-3">{t('contact.emailLabel')}</p>
                 <a href={`mailto:${CONTACT.email}`} className="text-xl text-white/90 hover:text-brand-peach-light transition-colors font-light">
                   {CONTACT.email}
                 </a>
              </div>
              
              <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-4">Otváracie hodiny</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-4">{t('contact.hoursLabel')}</p>
                 <div className="space-y-3">
-                   {HOURS.map((h, i) => (
-                      <div key={i} className="flex justify-between max-w-sm border-b border-white/10 pb-3">
-                         <span className="text-white/80 font-light">{h.days}</span>
-                         <span className="text-white font-serif">{h.time}</span>
+                      <div className="flex justify-between max-w-sm border-b border-white/10 pb-3">
+                         <span className="text-white/80 font-light">{t('contact.days1')}</span>
+                         <span className="text-white font-serif">{HOURS[0].time}</span>
                       </div>
-                   ))}
+                      <div className="flex justify-between max-w-sm border-b border-white/10 pb-3">
+                         <span className="text-white/80 font-light">{t('contact.days2')}</span>
+                         <span className="text-white font-serif">{HOURS[1].time}</span>
+                      </div>
                 </div>
              </div>
           </div>
@@ -762,7 +786,7 @@ function Contact() {
               </div>
               <h3 className="text-3xl font-serif text-white">{CONTACT.address}</h3>
               <p className="text-brand-green-light/80 font-light max-w-xs text-lg leading-relaxed">
-                Nájdete nás v príjemnej lokalite Hody. Parkovanie je zabezpečené priamo pred salónom.
+                {t('contact.locationDesc')}
               </p>
               
               <div className="pt-8 w-full flex flex-col gap-4">
@@ -775,7 +799,7 @@ function Contact() {
                   transition={{ type: "spring", stiffness: 400, damping: 15 }}
                   className="w-full inline-flex items-center justify-center px-8 py-5 bg-brand-peach-light text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all shadow-lg hover:bg-white hover:shadow-brand-peach-light/20 cursor-pointer"
                 >
-                  Otvoriť v navigácii
+                  {t('contact.openMap')}
                 </motion.a>
                 <motion.a 
                   href={CONTACT.facebook}
@@ -787,7 +811,7 @@ function Contact() {
                   className="w-full inline-flex items-center justify-center gap-2 px-8 py-5 bg-transparent border border-white/20 text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-white/10 cursor-pointer"
                 >
                   <Facebook className="w-4 h-4 text-brand-peach-light" />
-                  Sledovať na Facebooku
+                  {t('contact.followFb')}
                 </motion.a>
               </div>
            </div>
@@ -798,6 +822,7 @@ function Contact() {
 }
 
 function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-brand-green-dark pt-16 pb-12 px-6 md:px-12 border-t border-white/10">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
@@ -805,11 +830,11 @@ function Footer() {
         {/* Main top row: Navigation Legal items */}
         <div className="flex flex-col items-center justify-center gap-8 pb-8 border-b border-white/5">
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-white/50">
-             <a href="#sluzby" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Služby</a>
-             <a href="#cennik" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Cenník</a>
-             <a href="#o-nas" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">O nás</a>
-             <a href="#gdpr" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Ochrana osobných údajov</a>
-             <a href="#cookies" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Cookies</a>
+             <a href="#sluzby" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.services')}</a>
+             <a href="#cennik" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.pricing')}</a>
+             <a href="#o-nas" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.about')}</a>
+             <a href="#gdpr" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('footer.privacy')}</a>
+             <a href="#cookies" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('footer.cookies')}</a>
              <button 
                onClick={() => {
                  // Reopen cookie consent banner
@@ -817,9 +842,9 @@ function Footer() {
                }} 
                className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors cursor-pointer text-left"
              >
-               Nastavenia cookies
+               {t('footer.cookieSettings')}
              </button>
-             <a href="#kontakt" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Kontakt</a>
+             <a href="#kontakt" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.contact')}</a>
              <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors inline-flex items-center gap-1">
                <Facebook className="w-2.5 h-2.5" /> Facebook
              </a>
@@ -829,7 +854,7 @@ function Footer() {
         {/* Separator and copyright bottom row */}
         <div className="text-center">
           <p className="text-[10px] uppercase tracking-[0.3em] text-white/30">
-            © {new Date().getFullYear()} Baan Thai Massage Galanta. Všetky práva vyhradené.
+            © {new Date().getFullYear()} {t('footer.copyright')}
           </p>
         </div>
 

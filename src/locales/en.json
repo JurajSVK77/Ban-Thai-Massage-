@@ -1,0 +1,127 @@
+{
+  "nav": {
+    "services": "Services",
+    "pricing": "Pricing",
+    "about": "About Us",
+    "contact": "Contact",
+    "call": "Call us",
+    "followUs": "Follow us on Facebook"
+  },
+  "hero": {
+    "title1": "Original Thai",
+    "title2": "massages in Galanta",
+    "subtitle1": "A touch that restores",
+    "subtitle2": "balance.",
+    "cta": "Our Services",
+    "book": "Book an appointment"
+  },
+  "usps": {
+    "usp1": {
+      "title": "Authentic Thai massage",
+      "desc": "The salon is run by a certified Thai masseuse who attends to each client personally. Thanks to an individual approach, experience and emphasis on quality, you can enjoy an authentic Thai massage in a pleasant atmosphere and with maximum care."
+    },
+    "usp2": {
+      "title": "Massage in the privacy of a quiet garden",
+      "desc": "Enjoy a rest in a separate garden studio, which is set in a peaceful environment among family houses. Intimate atmosphere, silence and privacy create an ideal place for relaxation of body and mind."
+    },
+    "usp3": {
+      "title": "Time reserved strictly for you",
+      "desc": "In our private studio, we attend to each client individually and without rush. During the massage, you have space for real relaxation, privacy and care tailored to your needs."
+    }
+  },
+  "services": {
+    "label": "Our Offer",
+    "title": "The art of relaxation",
+    "s1": {
+      "title": "Traditional Thai massage",
+      "desc": "An authentic therapy combining acupressure, stretching and working with the body's energy pathways. Effectively removes muscle tension and blockages."
+    },
+    "s2": {
+      "title": "Thai oil massage",
+      "desc": "A relaxing procedure using natural aromatic oils. Ideal for unwinding after a stressful day and harmonizing the mind."
+    },
+    "s3": {
+      "title": "Foot reflexology",
+      "desc": "Stimulation of acupressure points on the feet, which brings relief not only to the legs, but also has a positive effect on the whole body."
+    },
+    "s4": {
+      "title": "Back and neck massage",
+      "desc": "Focused on the most overloaded parts of the body. Extremely helpful with pain from prolonged sitting and a stiff neck."
+    },
+    "bookLabel": "Book procedure"
+  },
+  "pricing": {
+    "label": "Pricing",
+    "title": "Our offer & Prices",
+    "desc1": "Indulge in deep relaxation with our traditional therapies. All our",
+    "desc2": "90-minute massages",
+    "desc3": "are now available for a comprehensive exceptional price",
+    "desc4": "€56",
+    "desc5": "for your perfect rest.",
+    "all": "All",
+    "30m": "30 min",
+    "60m": "60 min",
+    "90m": "90 min",
+    "special": "90 min only €56",
+    "p1": {
+      "name": "Relaxing oil massage",
+      "note": "classic oil massage"
+    },
+    "p2": {
+      "name": "Mix Thai oil massage",
+      "note": "combination of traditional and oil massage"
+    },
+    "p3": {
+      "name": "Traditional Thai massage",
+      "note": "dry acupressure massage with stretching"
+    },
+    "p4": {
+      "name": "Sports massage",
+      "note": "intensive regenerative massage for stiff muscles"
+    },
+    "p5": {
+      "name": "Thai foot massage",
+      "note": "reflexology focused on acupressure points"
+    },
+    "p6": {
+      "name": "Back and shoulder massage",
+      "note": "targeted relaxation of the neck, shoulders and whole spine"
+    },
+    "p7": {
+      "name": "Hot oil massage",
+      "note": "aromatic oil massage with heated oil"
+    },
+    "bookingInfo": "We recommend booking all massages in advance. We will be happy to welcome you to our charming and cozy salon in Hody."
+  },
+  "about": {
+    "label": "Our Story & Philosophy",
+    "title1": "A private oasis",
+    "title2": "in our",
+    "title3": "garden.",
+    "p1": "was created as a dream come true about a peaceful place where a person slows down for a while and treats himself to time just for himself. We lovingly created our cozy salon right in a quiet garden in Hody near Galanta — in a private design studio that offers peace, discretion and an atmosphere far from the hustle and bustle of the everyday world.",
+    "p2": "Only certified Thai masseuse Kay takes care of your comfort and regeneration. Since she works independently and gives each client an individual approach, each procedure is personal, peaceful and tailored to your needs.",
+    "p3": "During the massage, the whole studio is reserved just for you. No noise, no waiting, no anonymous environment of large salons. Only you, a peaceful atmosphere and a touch that helps your body and mind find balance again.",
+    "p4": "A touch that restores balance",
+    "featureTitle": "Premium oils",
+    "featureDesc": "100% natural ingredients that nourish your skin."
+  },
+  "contact": {
+    "label": "Contact",
+    "title1": "Plan",
+    "title2": "your rest",
+    "phoneLabel": "Phone / Booking",
+    "emailLabel": "Email address",
+    "hoursLabel": "Opening hours",
+    "days1": "Monday — Friday",
+    "days2": "Saturday — Sunday",
+    "locationDesc": "You will find us in a pleasant location in Hody. Parking is provided right in front of the salon.",
+    "openMap": "Open in Maps",
+    "followFb": "Follow on Facebook"
+  },
+  "footer": {
+    "privacy": "Privacy Policy",
+    "cookies": "Cookies",
+    "cookieSettings": "Cookie Settings",
+    "copyright": "Baan Thai Massage Galanta. All rights reserved."
+  }
+}

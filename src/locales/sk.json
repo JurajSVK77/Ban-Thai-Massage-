@@ -1,0 +1,127 @@
+{
+  "nav": {
+    "services": "Služby",
+    "pricing": "Cenník",
+    "about": "O nás",
+    "contact": "Kontakt",
+    "call": "Zavolať",
+    "followUs": "Sledujte nás na Facebooku"
+  },
+  "hero": {
+    "title1": "Originálne thajské",
+    "title2": "masáže v Galante",
+    "subtitle1": "Dotyk, ktorý vráti",
+    "subtitle2": "rovnováhu.",
+    "cta": "Naše Služby",
+    "book": "Rezervovať termín"
+  },
+  "usps": {
+    "usp1": {
+      "title": "Autentická Thajská masáž",
+      "desc": "Salón vedie certifikovaná thajská masérka, ktorá sa každému klientovi venuje osobne. Vďaka individuálnemu prístupu, skúsenostiam a dôrazu na kvalitu si u nás môžete dopriať autentickú thajskú masáž v príjemnej atmosfére a s maximálnou starostlivosťou."
+    },
+    "usp2": {
+      "title": "Masáž v súkromí tichej záhrady",
+      "desc": "Doprajte si oddych v samostatnom záhradnom štúdiu, ktoré je zasadené do pokojného prostredia medzi rodinnými domami. Komorná atmosféra, ticho a súkromie vytvárajú ideálne miesto na uvoľnenie tela aj mysle."
+    },
+    "usp3": {
+      "title": "Čas vyhradený len pre vás",
+      "desc": "V našom súkromnom štúdiu sa každému klientovi venujeme individuálne a bez zhonu. Počas masáže máte priestor na skutočný oddych, súkromie a starostlivosť prispôsobenú vašim potrebám."
+    }
+  },
+  "services": {
+    "label": "Naša Ponuka",
+    "title": "Umenie relaxácie",
+    "s1": {
+      "title": "Tradičná thajská masáž",
+      "desc": "Autentická terapia kombinujúca akupresúru, strečing a prácu s energetickými dráhami tela. Účinne odstraňuje svalové napätie a blokády."
+    },
+    "s2": {
+      "title": "Thajská olejová masáž",
+      "desc": "Relaxačná procedúra s využitím prírodných aromatických olejov. Ideálna na uvoľnenie po stresujúcom dni a na harmonizáciu mysle."
+    },
+    "s3": {
+      "title": "Reflexná masáž chodidiel",
+      "desc": "Stimulácia akupresúrnych bodov na chodidlách, ktorá prináša úľavu nielen nohám, ale priaznivo pôsobí na celé telo."
+    },
+    "s4": {
+      "title": "Masáž chrbta a šije",
+      "desc": "Zameraná na najviac preťažované partie tela. Výborne pomáha pri bolestiach z dlhého sedenia a pri stuhnutom krku."
+    },
+    "bookLabel": "Rezervovať procedúru"
+  },
+  "pricing": {
+    "label": "Cenník služieb",
+    "title": "Naša ponuka & Ceny",
+    "desc1": "Doprajte si hlboké uvoľnenie s našimi tradičnými terapiami. Všetky naše",
+    "desc2": "90-minútové masáže",
+    "desc3": "sú teraz k dispozícii za ucelenú výnimočnú cenu",
+    "desc4": "56 €",
+    "desc5": "pre váš dokonalý oddych.",
+    "all": "Všetky",
+    "30m": "30 min",
+    "60m": "60 min",
+    "90m": "90 min",
+    "special": "90 min len 56€",
+    "p1": {
+      "name": "Relaxačná olejová masáž",
+      "note": "klasická olejová masáž"
+    },
+    "p2": {
+      "name": "Mix Thajská olejová masáž",
+      "note": "kombinácia tradičnej a olejovej masáže"
+    },
+    "p3": {
+      "name": "Tradičná thajská masáž",
+      "note": "suchá akupresúrna masáž so strečingom"
+    },
+    "p4": {
+      "name": "Športová masáž",
+      "note": "intenzívna regeneračná masáž pre stuhnuté svaly"
+    },
+    "p5": {
+      "name": "Thajská masáž nôh",
+      "note": "reflexná masáž zameraná na akupresúrne body"
+    },
+    "p6": {
+      "name": "Masáž chrbta a ramien",
+      "note": "cielené uvoľnenie šije, ramien a celej chrbtice"
+    },
+    "p7": {
+      "name": "Masáž horúcim olejom",
+      "note": "aromatická olejová masáž s nahriatým olejom"
+    },
+    "bookingInfo": "Všetky masáže odporúčame rezervovať vopred. Radi vás privítame v našom očarujúcom a útulnom salóne v Hody."
+  },
+  "about": {
+    "label": "Náš Príbeh & Filozofia",
+    "title1": "Súkromná oáza",
+    "title2": "v našej",
+    "title3": "záhrade.",
+    "p1": "vznikol ako splnený sen o pokojnom mieste, kde človek na chvíľu spomalí a dopraje si čas len pre seba. Náš útulný salón sme s láskou vytvorili priamo v tichej záhrade v Hodoch pri Galante — v súkromnom dizajnovom štúdiu, ktoré ponúka pokoj, diskrétnosť a atmosféru ďaleko od ruchu bežného sveta.",
+    "p2": "O vaše pohodlie a regeneráciu sa stará výhradne certifikovaná thajská masérka Kay. Keďže pracuje samostatne a každému klientovi venuje individuálny prístup, každá procedúra je osobná, pokojná a prispôsobená vašim potrebám.",
+    "p3": "Počas masáže je celé štúdio vyhradené iba pre vás. Bez ruchu, bez čakania, bez anonymného prostredia veľkých salónov. Len vy, pokojná atmosféra a dotyk, ktorý pomáha telu aj mysli nájsť opäť rovnováhu.",
+    "p4": "Dotyk, ktorý vráti rovnováhu",
+    "featureTitle": "Prémiové oleje",
+    "featureDesc": "100% prírodné ingrediencie, ktoré vyživujú vašu pokožku."
+  },
+  "contact": {
+    "label": "Kontakt",
+    "title1": "Naplánujte si",
+    "title2": "svoj oddych",
+    "phoneLabel": "Telefón / Rezervácie",
+    "emailLabel": "Emailová adresa",
+    "hoursLabel": "Otváracie hodiny",
+    "days1": "Pondelok — Piatok",
+    "days2": "Sobota — Nedeľa",
+    "locationDesc": "Nájdete nás v príjemnej lokalite Hody. Parkovanie je zabezpečené priamo pred salónom.",
+    "openMap": "Otvoriť v navigácii",
+    "followFb": "Sledovať na Facebooku"
+  },
+  "footer": {
+    "privacy": "Ochrana osobných údajov",
+    "cookies": "Cookies",
+    "cookieSettings": "Nastavenia cookies",
+    "copyright": "Baan Thai Massage Galanta. Všetky práva vyhradené."
+  }
+}

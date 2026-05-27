@@ -1,0 +1,886 @@
+1:import { 
+2:  Phone, 
+3:  MapPin, 
+4:  Clock, 
+5:  Mail, 
+6:  Menu, 
+7:  X, 
+8:  ArrowRight,
+9:  Sun,
+10:  Leaf,
+11:  Droplet,
+12:  Heart,
+13:  Facebook
+14:} from "lucide-react";
+15:import { useState, useEffect } from "react";
+16:import { motion, AnimatePresence } from "motion/react";
+17:import { BaanLogo } from "./components/BaanLogo";
+18:import { CookieConsent } from "./components/CookieConsent";
+19:import { CookiesPage } from "./pages/CookiesPage";
+20:import { GdprPage } from "./pages/GdprPage";
+21:// @ts-ignore
+22:import mainBanner from "./assets/images/main_banner_1779859205162.png";
+23:// @ts-ignore
+24:import thajskaMasazImg from "./assets/images/Thajska_masaz.png";
+25:// @ts-ignore
+26:import olejovaMasazImg from "./assets/images/Olejova_masaz.png";
+27:// @ts-ignore
+28:import masazChrbtaImg from "./assets/images/Masaz_chrbta.png";
+29:// @ts-ignore
+30:import masazNohImg from "./assets/images/Masaz_noh.png";
+31:// @ts-ignore
+32:import olejRukaImg from "./assets/images/Olej_ruka.png";
+33:// @ts-ignore
+34:import kontajnerImg from "./assets/images/Kontajner.png";
+35:
+36:const CONTACT = {
+37:  phone: "+421 905 299 613",
+38:  phone2: "+421 918 854 630",
+39:  formattedPhone: "+421 905 299 613",
+40:  formattedPhone2: "+421 918 854 630",
+41:  facebook: "https://www.facebook.com/baanthaimassagegalanta/",
+42:  email: "info@baanthamassage.sk",
+43:  address: "Hody 1679, Galanta",
+44:  mapsLink: "https://maps.app.goo.gl/we7AN2ndrdAphjtd7"
+45:};
+46:
+47:const SERVICES = [
+48:  {
+49:    title: "Tradičná thajská masáž",
+50:    description: "Autentická terapia kombinujúca akupresúru, strečing a prácu s energetickými dráhami tela. Účinne odstraňuje svalové napätie a blokády.",
+51:    image: thajskaMasazImg
+52:  },
+53:  {
+54:    title: "Thajská olejová masáž",
+55:    description: "Relaxačná procedúra s využitím prírodných aromatických olejov. Ideálna na uvoľnenie po stresujúcom dni a na harmonizáciu mysle.",
+56:    image: olejovaMasazImg
+57:  },
+58:  {
+59:    title: "Reflexná masáž chodidiel",
+60:    description: "Stimulácia akupresúrnych bodov na chodidlách, ktorá prináša úľavu nielen nohám, ale priaznivo pôsobí na celé telo.",
+61:    image: masazNohImg
+62:  },
+63:  {
+64:    title: "Masáž chrbta a šije",
+65:    description: "Zameraná na najviac preťažované partie tela. Výborne pomáha pri bolestiach z dlhého sedenia a pri stuhnutom krku.",
+66:    image: masazChrbtaImg
+67:  }
+68:];
+69:
+70:const USPS = [
+71:  {
+72:    icon: Heart,
+73:    title: "Autentická Thajská masáž",
+74:    desc: "Salón vedie certifikovaná thajská masérka, ktorá sa každému klientovi venuje osobne. Vďaka individuálnemu prístupu, skúsenostiam a dôrazu na kvalitu si u nás môžete dopriať autentickú thajskú masáž v príjemnej atmosfére a s maximálnou starostlivosťou."
+75:  },
+76:  {
+77:    icon: Leaf,
+78:    title: "Masáž v súkromí tichej záhrady",
+79:    desc: "Doprajte si oddych v samostatnom záhradnom štúdiu, ktoré je zasadené do pokojného prostredia medzi rodinnými domami. Komorná atmosféra, ticho a súkromie vytvárajú ideálne miesto na uvoľnenie tela aj mysle."
+80:  },
+81:  {
+82:    icon: Sun,
+83:    title: "Čas vyhradený len pre vás",
+84:    desc: "V našom súkromnom štúdiu sa každému klientovi venujeme individuálne a bez zhonu. Počas masáže máte priestor na skutočný oddych, súkromie a starostlivosť prispôsobenú vašim potrebám."
+85:  }
+86:];
+87:
+88:const HOURS = [
+89:  { days: "Pondelok — Piatok", time: "10:00 - 20:00" },
+90:  { days: "Sobota — Nedeľa", time: "10:00 - 18:00" }
+91:];
+92:
+93:const PRICING_DATA = [
+94:  {
+95:    name: "Relaxačná olejová masáž",
+96:    note: "klasická olejová masáž",
+97:    prices: { "30": null, "60": 40, "90": 56 }
+98:  },
+99:  {
+100:    name: "Mix Thajská olejová masáž",
+101:    note: "kombinácia tradičnej a olejovej masáže",
+102:    prices: { "30": null, "60": 40, "90": 56 }
+103:  },
+104:  {
+105:    name: "Tradičná thajská masáž",
+106:    note: "suchá akupresúrna masáž so strečingom",
+107:    prices: { "30": null, "60": 40, "90": 56 }
+108:  },
+109:  {
+110:    name: "Športová masáž",
+111:    note: "intenzívna regeneračná masáž pre stuhnuté svaly",
+112:    prices: { "30": null, "60": 40, "90": 56 }
+113:  },
+114:  {
+115:    name: "Thajská masáž nôh",
+116:    note: "reflexná masáž zameraná na akupresúrne body",
+117:    prices: { "30": 25, "60": 40, "90": 56 }
+118:  },
+119:  {
+120:    name: "Masáž chrbta a ramien",
+121:    note: "cielené uvoľnenie šije, ramien a celej chrbtice",
+122:    prices: { "30": 25, "60": 40, "90": 56 }
+123:  },
+124:  {
+125:    name: "Masáž horúcim olejom",
+126:    note: "aromatická olejová masáž s nahriatým olejom",
+127:    prices: { "30": null, "60": 43, "90": 56 }
+128:  }
+129:];
+130:
+131:const fadeUp = {
+132:  hidden: { opacity: 0, y: 30 },
+133:  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+134:};
+135:
+136:const staggerContainer = {
+137:  hidden: { opacity: 0 },
+138:  visible: {
+139:    opacity: 1,
+140:    transition: { staggerChildren: 0.15 }
+141:  }
+142:};
+143:
+144:function Navbar() {
+145:  const [isOpen, setIsOpen] = useState(false);
+146:  const [scrolled, setScrolled] = useState(false);
+147:
+148:  useEffect(() => {
+149:    const handleScroll = () => setScrolled(window.scrollY > 50);
+150:    window.addEventListener('scroll', handleScroll);
+151:    return () => window.removeEventListener('scroll', handleScroll);
+152:  }, []);
+153:
+154:  return (
+155:    <>
+156:      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'glass-nav py-4' : 'bg-transparent py-6'}`}>
+157:        <div className="max-w-7xl mx-auto px-6 md:px-12">
+158:          <div className="flex justify-between items-center">
+159:            <a href="#" className="flex items-center relative z-50 group">
+160:               <BaanLogo className="h-12 md:h-14 w-auto shrink-0 text-[#af8a54] group-hover:text-brand-green-dark transition-colors duration-300" showText={true} theme="custom" />
+161:            </a>
+162:            
+163:            <div className="hidden md:flex items-center space-x-10">
+164:              <a href="#sluzby" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">Služby</a>
+165:              <a href="#cennik" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">Cenník</a>
+166:              <a href="#o-nas" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">O nás</a>
+167:              <a href="#kontakt" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">Kontakt</a>
+168:              
+169:              <motion.a 
+170:                href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+171:                whileHover={{ y: -2, scale: 1.03 }}
+172:                whileTap={{ scale: 0.97 }}
+173:                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+174:                className="group relative inline-flex items-center justify-center px-8 py-3 bg-brand-green-dark text-white text-[10px] uppercase tracking-[0.2em] font-bold rounded-full overflow-hidden transition-all hover:shadow-xl hover:shadow-brand-green-dark/20"
+175:              >
+176:                <div className="absolute inset-0 w-0 bg-brand-green transition-all duration-500 ease-out group-hover:w-full"></div>
+177:                <span className="relative flex items-center">
+178:                  <Phone className="w-3 h-3 mr-2" />
+179:                  Zavolať
+180:                </span>
+181:              </motion.a>
+182:            </div>
+183:
+184:            <button 
+185:              onClick={() => setIsOpen(!isOpen)}
+186:              className="md:hidden relative z-50 text-brand-green-dark p-2"
+187:            >
+188:              <div className="relative w-6 h-5">
+189:                <span className={`absolute h-0.5 bg-current w-full transform transition-all duration-300 ${isOpen ? 'rotate-45 top-2' : 'top-0'}`} />
+190:                <span className={`absolute h-0.5 bg-current transform transition-all duration-300 top-2 ${isOpen ? 'w-0 opacity-0' : 'w-4'}`} />
+191:                <span className={`absolute h-0.5 bg-current w-full transform transition-all duration-300 ${isOpen ? '-rotate-45 top-2' : 'top-4'}`} />
+192:              </div>
+193:            </button>
+194:          </div>
+195:        </div>
+196:      </nav>
+197:
+198:      <AnimatePresence>
+199:        {isOpen && (
+200:          <motion.div 
+201:            initial={{ opacity: 0, y: -20 }}
+202:            animate={{ opacity: 1, y: 0 }}
+203:            exit={{ opacity: 0, y: -20 }}
+204:            className="fixed inset-0 z-40 bg-bg-base/95 backdrop-blur-xl flex flex-col justify-center items-center space-y-8"
+205:          >
+206:            <a href="#sluzby" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">Služby</a>
+207:            <a href="#cennik" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">Cenník</a>
+208:            <a href="#o-nas" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">O nás</a>
+209:            <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">Kontakt</a>
+210:            
+211:            <motion.a 
+212:              href={CONTACT.facebook}
+213:              target="_blank"
+214:              rel="noopener noreferrer"
+215:              whileHover={{ y: -4, scale: 1.02 }}
+216:              whileTap={{ scale: 0.98 }}
+217:              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+218:              className="mt-8 px-8 py-4 bg-brand-peach-dark text-white text-xs uppercase tracking-widest font-bold rounded-full shadow-lg shadow-brand-peach-dark/20 text-center flex items-center justify-center gap-2"
+219:            >
+220:              <Facebook className="w-4 h-4" />
+221:              Sledujte nás na Facebooku
+222:            </motion.a>
+223:          </motion.div>
+224:        )}
+225:      </AnimatePresence>
+226:    </>
+227:  );
+228:}
+229:
+230:function Hero() {
+231:  return (
+232:    <section className="relative pt-32 pb-12 overflow-hidden bg-bg-base flex flex-col items-center justify-center">
+233:      <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
+234:        
+235:        {/* Main title above the banner with expressive yet delicate display typography */}
+236:        <div className="text-center mb-10 md:mb-14 max-w-4xl mx-auto px-4">
+237:          <motion.h1 
+238:            initial={{ opacity: 0, y: -15 }}
+239:            animate={{ opacity: 1, y: 0 }}
+240:            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+241:            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light text-brand-green-dark tracking-wide leading-tight"
+242:          >
+243:            Originálne thajské <span className="italic font-normal text-brand-peach-dark">masáže v Galante</span>
+244:          </motion.h1>
+245:          <motion.div
+246:            initial={{ opacity: 0, width: 0 }}
+247:            animate={{ opacity: 1, width: 80 }}
+248:            transition={{ duration: 1.2, delay: 0.3 }}
+249:            className="h-[1px] bg-brand-peach-dark/30 mx-auto mt-6"
+250:          />
+251:        </div>
+252:
+253:        <motion.div 
+254:          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+255:          animate={{ opacity: 1, y: 0, scale: 1 }}
+256:          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+257:          className="relative w-full aspect-[16/9] sm:aspect-[2.5/1] lg:aspect-[3.5/1] rounded-[2rem] overflow-hidden shadow-2xl shadow-brand-green-dark/10 group bg-brand-peach-light/20 flex flex-col items-center justify-center"
+258:        >
+259:          {/* 
+260:            PLACEHOLDER PRE UPLOADNUTÚ GRAFIKU BANNERU 
+261:            Zmeňte 'src' parameter na URL vašej nahranej grafiky. 
+262:            Pre najlepší výsledok použite grafiku v pôvodnom pomere strán zobrazenú vyššie.
+263:          */}
+264:          <img 
+265:            src={mainBanner} 
+266:            alt="Baan Thai Massage Banner"
+267:            referrerPolicy="no-referrer"
+268:            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+269:          />
+270:          
+271:          <div className="absolute inset-0 bg-black/10 pointer-events-none transition-opacity duration-1000 group-hover:bg-transparent"></div>
+272:          
+273:          {/* Overlay elements only if needed. Assuming the uploaded banner has all the text, 
+274:              we leave this space relatively clean, but could add strong CTA buttons below it. */}
+275:        </motion.div>
+276:
+277:        {/* Elegant slogan below the banner */}
+278:        <div className="text-center mt-12 mb-2 max-w-3xl mx-auto px-4">
+279:          <motion.p
+280:            initial={{ opacity: 0, y: 15 }}
+281:            animate={{ opacity: 1, y: 0 }}
+282:            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+283:            className="text-xl sm:text-2xl md:text-3xl font-serif font-light text-brand-green-dark tracking-wider italic"
+284:          >
+285:            Dotyk, ktorý vráti <span className="font-normal text-brand-peach-dark">rovnováhu.</span>
+286:          </motion.p>
+287:        </div>
+288:
+289:        <motion.div 
+290:          initial={{ opacity: 0, y: 20 }}
+291:          animate={{ opacity: 1, y: 0 }}
+292:          transition={{ duration: 1, delay: 0.4 }}
+293:          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-10 md:mt-12"
+294:        >
+295:          <motion.a 
+296:            href={`#sluzby`}
+297:            whileHover={{ y: -4, scale: 1.02 }}
+298:            whileTap={{ scale: 0.98 }}
+299:            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+300:            className="w-full sm:w-auto text-center px-10 py-4 bg-brand-green-dark text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all shadow-lg hover:bg-brand-green hover:shadow-brand-green/30 cursor-pointer"
+301:          >
+302:            Naše Služby
+303:          </motion.a>
+304:          <motion.a 
+305:            href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
+306:            whileHover={{ y: -4, scale: 1.02 }}
+307:            whileTap={{ scale: 0.98 }}
+308:            transition={{ type: "spring", stiffness: 400, damping: 15 }}
+309:            className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 border border-brand-green text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-brand-green hover:text-white shadow-sm cursor-pointer"
+310:          >
+311:            <Phone className="w-4 h-4" />
+312:            Rezervovať termín
+313:          </motion.a>
+314:        </motion.div>
+315:      </div>
+316:    </section>
+317:  );
+318:}
+319:
+320:function Benefits() {
+321:  return (
+322:    <section className="relative z-20 px-6 md:px-12 hidden md:block mt-8">
+323:      <div className="max-w-6xl mx-auto">
+324:        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+325:          {USPS.map((usp, i) => (
+326:            <motion.div 
+327:              initial={{ opacity: 0, y: 20 }}
+328:              whileInView={{ opacity: 1, y: 0 }}
+329:              viewport={{ once: true }}
+330:              transition={{ delay: i * 0.1, duration: 0.6 }}
+331:              key={i} 
+332:              className="bg-white p-8 rounded-[2rem] shadow-[0_10px_40px_-10px_rgba(0,0,0,0.03)] border border-brand-green-light/10 flex items-start gap-5 hover:-translate-y-2 hover:shadow-[0_20px_50px_-15px_rgba(0,0,0,0.06)] transition-all duration-300"
+333:            >
+334:              <div className="w-12 h-12 rounded-full bg-brand-peach-light/30 flex flex-shrink-0 items-center justify-center text-brand-peach-dark">
+335:                <usp.icon className="w-5 h-5" strokeWidth={1.5} />
+336:              </div>
+337:              <div>
+338:                <h3 className="text-xs uppercase tracking-widest font-bold text-text-dark mb-2">{usp.title}</h3>
+339:                <p className="text-xs text-text-muted leading-relaxed font-light">{usp.desc}</p>
+340:              </div>
+341:            </motion.div>
+342:          ))}
+343:        </div>
+344:      </div>
+345:    </section>
+346:  );
+347:}
+348:
+349:function Services() {
+350:  return (
+351:    <section id="sluzby" className="py-32 bg-bg-base relative">
+352:      <div className="max-w-7xl mx-auto px-6 md:px-12">
+353:        
+354:        <motion.div 
+355:          initial={{ opacity: 0, y: 30 }}
+356:          whileInView={{ opacity: 1, y: 0 }}
+357:          viewport={{ once: true, margin: "-100px" }}
+358:          transition={{ duration: 0.8, ease: "easeOut" }}
+359:          className="text-center max-w-2xl mx-auto mb-24"
+360:        >
+361:          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">Naša Ponuka</span>
+362:          <h2 className="text-5xl md:text-6xl font-serif text-brand-green-dark mb-6">Umenie relaxácie</h2>
+363:          <motion.div 
+364:             initial={{ width: 0 }}
+365:             whileInView={{ width: 64 }}
+366:             viewport={{ once: true }}
+367:             transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+368:             className="h-[1px] bg-brand-green mx-auto"
+369:          />
+370:        </motion.div>
+371:
+372:        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-x-20 md:gap-y-32 relative">
+373:          {/* Decorative dividing line for desktop */}
+374:          <motion.div 
+375:            initial={{ height: 0 }}
+376:            whileInView={{ height: "80%" }}
+377:            viewport={{ once: true, margin: "-200px" }}
+378:            transition={{ duration: 1.5, ease: "easeInOut" }}
+379:            className="hidden md:block absolute top-[10%] left-1/2 w-[1px] bg-brand-green-light/30 -translate-x-1/2" 
+380:          />
+381:
+382:          {SERVICES.map((service, i) => (
+383:            <motion.div 
+384:              initial="hidden"
+385:              whileInView="visible"
+386:              viewport={{ once: true, margin: "-100px" }}
+387:              variants={{
+388:                hidden: { opacity: 0 },
+389:                visible: {
+390:                  opacity: 1,
+391:                  transition: { staggerChildren: 0.15, delayChildren: 0.1 }
+392:                }
+393:              }}
+394:              key={i} 
+395:              className={`group flex flex-col ${i % 2 !== 0 ? 'md:mt-32' : ''}`}
+396:            >
+397:              <motion.div 
+398:                variants={{
+399:                  hidden: { opacity: 0, scale: 0.95, y: 30 },
+400:                  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
+401:                }}
+402:                className="overflow-hidden rounded-[2.5rem] rounded-tr-[6rem] rounded-bl-[5rem] mb-8 relative aspect-[4/3] bg-bg-alt shadow-lg shadow-brand-green-dark/5"
+403:              >
+404:                <div className="absolute inset-0 bg-brand-green-dark/10 group-hover:bg-transparent transition-colors z-10 duration-700"></div>
+405:                <motion.img 
+406:                  variants={{
+407:                    hidden: { scale: 1.2 },
+408:                    visible: { scale: 1, transition: { duration: 1.2, ease: "easeOut" } }
+409:                  }}
+410:                  src={service.image} 
+411:                  alt={service.title}
+412:                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+413:                />
+414:              </motion.div>
+415:              <div className="px-4">
+416:                <motion.div 
+417:                  variants={{
+418:                    hidden: { opacity: 0, x: -20 },
+419:                    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+420:                  }}
+421:                  className="flex items-center gap-4 mb-4"
+422:                >
+423:                  <span className="text-sm font-serif italic text-brand-peach-dark">0{i + 1}.</span>
+424:                  <div className="h-[1px] flex-1 bg-brand-green-light/50"></div>
+425:                </motion.div>
+426:                <motion.h3 
+427:                  variants={{
+428:                    hidden: { opacity: 0, y: 20 },
+429:                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+430:                  }}
+431:                  className="text-3xl font-serif text-text-dark mb-4"
+432:                >
+433:                  {service.title}
+434:                </motion.h3>
+435:                <motion.p 
+436:                  variants={{
+437:                    hidden: { opacity: 0, y: 20 },
+438:                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+439:                  }}
+440:                  className="text-text-muted font-light leading-relaxed mb-8"
+441:                >
+442:                  {service.description}
+443:                </motion.p>
+444:                <motion.div
+445:                  variants={{
+446:                    hidden: { opacity: 0, y: 10 },
+447:                    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+448:                  }}
+449:                >
+450:                  <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] font-bold text-brand-green-dark hover:text-brand-peach-dark transition-colors border-b border-transparent hover:border-brand-peach-dark pb-1">
+451:                    Rezervovať procedúru <ArrowRight className="w-3 h-3 ml-2" />
+452:                  </a>
+453:                </motion.div>
+454:              </div>
+455:            </motion.div>
+456:          ))}
+457:        </div>
+458:      </div>
+459:    </section>
+460:  );
+461:}
+462:
+463:function Pricing() {
+464:  const [selectedDuration, setSelectedDuration] = useState<"all" | "30" | "60" | "90">("all");
+465:
+466:  const filteredData = PRICING_DATA.filter((item) => {
+467:    if (selectedDuration === "all") return true;
+468:    return item.prices[selectedDuration] !== null;
+469:  });
+470:
+471:  return (
+472:    <section id="cennik" className="py-32 bg-bg-alt/40 relative overflow-hidden">
+473:      {/* Decorative vectors / blobs */}
+474:      <div className="absolute top-[20%] right-[-10%] w-[400px] h-[400px] bg-brand-peach-light/20 blur-[120px] rounded-full pointer-events-none"></div>
+475:      <div className="absolute bottom-[10%] left-[-10%] w-[400px] h-[400px] bg-brand-green-light/25 blur-[120px] rounded-full pointer-events-none"></div>
+476:
+477:      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+478:        
+479:        {/* Section Header */}
+480:        <motion.div 
+481:          initial={{ opacity: 0, y: 30 }}
+482:          whileInView={{ opacity: 1, y: 0 }}
+483:          viewport={{ once: true, margin: "-100px" }}
+484:          transition={{ duration: 0.8 }}
+485:          className="text-center max-w-2xl mx-auto mb-16"
+486:        >
+487:          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">Cenník služieb</span>
+488:          <h2 className="text-5xl md:text-6xl font-serif text-brand-green-dark mb-6">Naša ponuka & Ceny</h2>
+489:          <div className="w-16 h-[1px] bg-brand-green mx-auto mb-6"></div>
+490:          <p className="text-text-muted font-light leading-relaxed">
+491:            Doprajte si hlboké uvoľnenie s našimi tradičnými terapiami. Všetky naše <strong className="font-semibold text-brand-peach-dark">90-minútové masáže</strong> sú teraz k dispozícii za ucelenú výnimočnú cenu <strong className="font-bold text-brand-peach-dark text-lg">56 €</strong> pre váš dokonalý oddych.
+492:          </p>
+493:        </motion.div>
+494:
+495:        {/* Duration Filter Switcher */}
+496:        <motion.div 
+497:          initial={{ opacity: 0, y: 15 }}
+498:          whileInView={{ opacity: 1, y: 0 }}
+499:          viewport={{ once: true }}
+500:          transition={{ duration: 0.6, delay: 0.1 }}
+501:          className="flex justify-center mb-16"
+502:        >
+503:          <div className="bg-white/85 backdrop-blur-md p-1.5 rounded-full border border-brand-green-light/25 shadow-md inline-flex gap-1">
+504:            <button
+505:              onClick={() => setSelectedDuration("all")}
+506:              className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "all" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
+507:            >
+508:              Všetky
+509:            </button>
+510:            <button
+511:              onClick={() => setSelectedDuration("30")}
+512:              className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "30" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
+513:            >
+514:              30 min
+515:            </button>
+516:            <button
+517:              onClick={() => setSelectedDuration("60")}
+518:              className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "60" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
+519:            >
+520:              60 min
+521:            </button>
+522:            <button
+523:              onClick={() => setSelectedDuration("90")}
+524:              className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "90" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
+525:            >
+526:              90 min
+527:            </button>
+528:          </div>
+529:        </motion.div>
+530:
+531:        {/* Pricing List Container */}
+532:        <div className="max-w-4xl mx-auto bg-white/75 backdrop-blur-xl rounded-[2.5rem] border border-brand-green-light/15 p-6 md:p-12 shadow-xl shadow-brand-green-dark/5">
+533:          
+534:          <div className="space-y-2">
+535:            <AnimatePresence mode="popLayout">
+536:              {filteredData.map((item) => (
+537:                <motion.div
+538:                  layout
+539:                  initial={{ opacity: 0, y: 12 }}
+540:                  animate={{ opacity: 1, y: 0 }}
+541:                  exit={{ opacity: 0, y: -12 }}
+542:                  transition={{ duration: 0.4 }}
+543:                  key={item.name}
+544:                  className="flex flex-col sm:flex-row sm:items-center justify-between py-6 border-b border-brand-green-light/10 last:border-0 hover:bg-bg-alt/30 px-4 md:px-6 rounded-2xl transition-all duration-300 group"
+545:                >
+546:                  <div className="flex-1 pr-6 mb-4 sm:mb-0">
+547:                    <div className="flex items-center gap-3">
+548:                      <h3 className="text-xl md:text-2xl font-serif text-text-dark group-hover:text-brand-green-dark transition-colors">{item.name}</h3>
+549:                      {item.prices["90"] && selectedDuration === "all" && (
+550:                        <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest bg-brand-peach-light/35 border border-brand-peach-dark/25 text-brand-peach-dark font-semibold">
+551:                          90 min len 56€
+552:                        </span>
+553:                      )}
+554:                    </div>
+555:                    {item.note && (
+556:                      <p className="text-xs text-text-muted mt-1.5 font-light italic uppercase tracking-wider">
+557:                        ({item.note})
+558:                      </p>
+559:                    )}
+560:                  </div>
+561:
+562:                  <div className="flex items-center gap-4 shrink-0">
+563:                    {/* 30 min */}
+564:                    {(selectedDuration === "all" || selectedDuration === "30") && (
+565:                      <div className={`flex flex-col items-center justify-center min-w-[70px] py-1.5 px-2 rounded-xl transition-all ${item.prices["30"] ? 'bg-bg-alt/65 border border-brand-green-light/20 text-text-dark shadow-sm' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'}`}>
+566:                        <span className="text-[9px] tracking-wider uppercase opacity-60">30 min</span>
+567:                        <span className="text-sm font-medium font-serif mt-0.5">{item.prices["30"] ? `${item.prices["30"]} €` : '—'}</span>
+568:                      </div>
+569:                    )}
+570:
+571:                    {/* 60 min */}
+572:                    {(selectedDuration === "all" || selectedDuration === "60") && (
+573:                      <div className={`flex flex-col items-center justify-center min-w-[70px] py-1.5 px-2 rounded-xl transition-all ${item.prices["60"] ? 'bg-bg-alt/65 border border-brand-green-light/20 text-text-dark shadow-sm' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'}`}>
+574:                        <span className="text-[9px] tracking-wider uppercase opacity-60">60 min</span>
+575:                        <span className="text-sm font-medium font-serif mt-0.5">{item.prices["60"] ? `${item.prices["60"]} €` : '—'}</span>
+576:                      </div>
+577:                    )}
+578:
+579:                    {/* 90 min */}
+580:                    {(selectedDuration === "all" || selectedDuration === "90") && (
+581:                      <div className={`flex flex-col items-center justify-center min-w-[75px] py-2 px-3 rounded-xl transition-all bg-brand-peach-light/30 border border-brand-peach-dark/25 text-brand-peach-dark relative overflow-hidden group-hover:scale-105 duration-300 shadow-sm`}>
+582:                        <div className="absolute inset-0 bg-brand-peach-dark/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+583:                        <span className="text-[9px] tracking-widest uppercase font-bold text-brand-peach-dark/85">90 min</span>
+584:                        <span className="text-sm font-bold font-serif mt-0.5 flex items-baseline gap-0.5 text-brand-peach-dark">
+585:                          {item.prices["90"]} €
+586:                        </span>
+587:                      </div>
+588:                    )}
+589:                  </div>
+590:                </motion.div>
+591:              ))}
+592:            </AnimatePresence>
+593:          </div>
+594:          
+595:          {/* Reservation Call to Action inside the Pricing box */}
+596:          <div className="mt-12 pt-8 border-t border-brand-green-light/15 text-center flex flex-col items-center">
+597:            <p className="text-xs text-text-muted max-w-md mx-auto mb-6 leading-relaxed">
+598:              Všetky masáže odporúčame rezervovať vopred. Radi vás privítame v našom očarujúcom a útulnom salóne v Hody.
+599:            </p>
+600:            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md">
+601:              <motion.a 
+602:                href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} 
+603:                whileHover={{ y: -4, scale: 1.02 }}
+604:                whileTap={{ scale: 0.98 }}
+605:                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+606:                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-green-dark text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all shadow-lg hover:shadow-brand-green/35 hover:bg-brand-green cursor-pointer"
+607:              >
+608:                <Phone className="w-3.5 h-3.5" />
+609:                {CONTACT.formattedPhone}
+610:              </motion.a>
+611:              <motion.a 
+612:                href={`tel:${CONTACT.phone2.replace(/\s+/g, '')}`} 
+613:                whileHover={{ y: -4, scale: 1.02 }}
+614:                whileTap={{ scale: 0.98 }}
+615:                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+616:                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-brand-green text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-brand-green hover:text-white shadow-sm cursor-pointer"
+617:              >
+618:                <Phone className="w-3.5 h-3.5" />
+619:                {CONTACT.formattedPhone2}
+620:              </motion.a>
+621:            </div>
+622:          </div>
+623:
+624:        </div>
+625:
+626:      </div>
+627:    </section>
+628:  );
+629:}
+630:
+631:function About() {
+632:  return (
+633:    <section id="o-nas" className="py-32 bg-white relative overflow-hidden">
+634:      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+635:        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+636:          
+637:          <motion.div 
+638:            initial={{ opacity: 0, x: -50 }}
+639:            whileInView={{ opacity: 1, x: 0 }}
+640:            viewport={{ once: true }}
+641:            transition={{ duration: 1 }}
+642:            className="w-full lg:w-1/2 relative"
+643:          >
+644:            {/* Soft decorative background shadow */}
+645:            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full aspect-square bg-brand-peach-light/20 blur-[80px] rounded-full"></div>
+646:            
+647:            <div className="aspect-[3/4] rounded-full overflow-hidden border-[12px] border-white shadow-2xl relative z-10 w-4/5 mx-auto lg:mx-0">
+648:                <img src={kontajnerImg} alt="Therapy" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+649:            </div>
+650:            
+651:            <div className="absolute bottom-4 right-0 w-3/5 aspect-square organic-blob-alt overflow-hidden border-[8px] border-white shadow-xl z-20">
+652:               <img src={olejRukaImg} alt="Spa Container Studio" className="w-full h-full object-cover scale-110" referrerPolicy="no-referrer" />
+653:            </div>
+654:          </motion.div>
+655:          
+656:          <motion.div 
+657:             initial={{ opacity: 0, x: 50 }}
+658:             whileInView={{ opacity: 1, x: 0 }}
+659:             viewport={{ once: true }}
+660:             transition={{ duration: 1 }}
+661:             className="w-full lg:w-1/2 pl-0 lg:pl-10"
+662:          >
+663:            <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-dark mb-4 block">Náš Príbeh & Filozofia</span>
+664:            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-brand-green-dark mb-8 leading-[1.1]">
+665:              Súkromná oáza <br/>v našej <span className="italic font-light">záhrade.</span>
+666:            </h2>
+667:            
+668:            <div className="space-y-6 text-text-muted font-light leading-relaxed text-lg">
+669:              <p>
+670:                <strong>Baan Thai Massage</strong> vznikol ako splnený sen o pokojnom mieste, kde človek na chvíľu spomalí a dopraje si čas len pre seba. Náš útulný salón sme s láskou vytvorili priamo v tichej záhrade v Hodoch pri Galante — v súkromnom dizajnovom štúdiu, ktoré ponúka pokoj, diskrétnosť a atmosféru ďaleko od ruchu bežného sveta.
+671:              </p>
+672:              <p>
+673:                O vaše pohodlie a regeneráciu sa stará výhradne certifikovaná thajská masérka Kay. Keďže pracuje samostatne a každému klientovi venuje individuálny prístup, každá procedúra je osobná, pokojná a prispôsobená vašim potrebám.
+674:              </p>
+675:              <p>
+676:                Počas masáže je celé štúdio vyhradené iba pre vás. Bez ruchu, bez čakania, bez anonymného prostredia veľkých salónov. Len vy, pokojná atmosféra a dotyk, ktorý pomáha telu aj mysli nájsť opäť rovnováhu. <strong className="text-brand-peach-dark font-semibold">Dotyk, ktorý vráti rovnováhu</strong>
+677:              </p>
+678:            </div>
+679:            
+680:            <div className="mt-12 flex items-center gap-6 p-6 bg-bg-alt/50 rounded-3xl border border-brand-green-light/20">
+681:               <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center border border-brand-green-light/30">
+682:                  <Droplet className="w-6 h-6 text-brand-peach-dark" strokeWidth={1.5} />
+683:               </div>
+684:               <div>
+685:                  <h4 className="text-sm uppercase tracking-widest font-bold text-text-dark">Prémiové oleje</h4>
+686:                  <p className="text-xs text-text-muted mt-1">100% prírodné ingrediencie, ktoré vyživujú vašu pokožku.</p>
+687:               </div>
+688:            </div>
+689:          </motion.div>
+690:
+691:        </div>
+692:      </div>
+693:    </section>
+694:  );
+695:}
+696:
+697:function Contact() {
+698:  return (
+699:    <section id="kontakt" className="py-24 bg-brand-green-dark relative overflow-hidden">
+700:      {/* Decorative floral/leaf design on background */}
+701:      <svg className="absolute top-0 right-0 text-white/5 w-[600px] h-[600px] transform translate-x-1/4 -translate-y-1/4 pointer-events-none" viewBox="0 0 100 100" fill="currentColor">
+702:         <path d="M50 0 C60 20 80 40 100 50 C80 60 60 80 50 100 C40 80 20 60 0 50 C20 40 40 20 50 0 Z" />
+703:      </svg>
+704:      
+705:      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+706:        
+707:        <div>
+708:          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-light mb-4 block">Kontakt</span>
+709:          <h2 className="text-4xl md:text-6xl font-serif text-white mb-12 leading-[1.1]">
+710:            Naplánujte si <br/><span className="italic font-light text-brand-peach-light">svoj oddych</span>
+711:          </h2>
+712:          
+713:          <div className="space-y-12">
+714:             <div>
+715:                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-4">Telefón / Rezervácie</p>
+716:                <div className="flex flex-col gap-4">
+717:                  <div className="group">
+718:                    <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="text-3xl font-serif text-white hover:text-brand-peach-light transition-colors relative inline-block">
+719:                      {CONTACT.formattedPhone}
+720:                      <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-peach-light transition-all duration-300 group-hover:w-full"></span>
+721:                    </a>
+722:                  </div>
+723:                  <div className="group">
+724:                    <a href={`tel:${CONTACT.phone2.replace(/\s+/g, '')}`} className="text-3xl font-serif text-white hover:text-brand-peach-light transition-colors relative inline-block">
+725:                      {CONTACT.formattedPhone2}
+726:                      <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-brand-peach-light transition-all duration-300 group-hover:w-full"></span>
+727:                    </a>
+728:                  </div>
+729:                </div>
+730:             </div>
+731:             
+732:             <div>
+733:                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-3">Emailová adresa</p>
+734:                <a href={`mailto:${CONTACT.email}`} className="text-xl text-white/90 hover:text-brand-peach-light transition-colors font-light">
+735:                  {CONTACT.email}
+736:                </a>
+737:             </div>
+738:             
+739:             <div>
+740:                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-4">Otváracie hodiny</p>
+741:                <div className="space-y-3">
+742:                   {HOURS.map((h, i) => (
+743:                      <div key={i} className="flex justify-between max-w-sm border-b border-white/10 pb-3">
+744:                         <span className="text-white/80 font-light">{h.days}</span>
+745:                         <span className="text-white font-serif">{h.time}</span>
+746:                      </div>
+747:                   ))}
+748:                </div>
+749:             </div>
+750:          </div>
+751:        </div>
+752:
+753:        <div className="bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-8 md:p-14 relative overflow-hidden shadow-2xl">
+754:           <div className="absolute top-0 right-0 w-64 h-64 bg-brand-peach-light/10 blur-[80px] rounded-full pointer-events-none"></div>
+755:           
+756:           <div className="flex flex-col items-center text-center space-y-6 relative z-10">
+757:              {/* Integrated Brand Logo */}
+758:              <BaanLogo className="w-48 h-48 sm:w-56 sm:h-56 text-brand-peach-light mb-2 animate-fade-in" showText={true} theme="dark" />
+759:              
+760:              <div className="w-12 h-12 rounded-full bg-brand-green-light/10 border border-brand-green-light/20 text-brand-peach-light flex items-center justify-center mb-2">
+761:                 <MapPin strokeWidth={1} className="w-6 h-6" />
+762:              </div>
+763:              <h3 className="text-3xl font-serif text-white">{CONTACT.address}</h3>
+764:              <p className="text-brand-green-light/80 font-light max-w-xs text-lg leading-relaxed">
+765:                Nájdete nás v príjemnej lokalite Hody. Parkovanie je zabezpečené priamo pred salónom.
+766:              </p>
+767:              
+768:              <div className="pt-8 w-full flex flex-col gap-4">
+769:                <motion.a 
+770:                  href={CONTACT.mapsLink}
+771:                  target="_blank"
+772:                  rel="noopener noreferrer"
+773:                  whileHover={{ y: -4, scale: 1.02 }}
+774:                  whileTap={{ scale: 0.98 }}
+775:                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+776:                  className="w-full inline-flex items-center justify-center px-8 py-5 bg-brand-peach-light text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all shadow-lg hover:bg-white hover:shadow-brand-peach-light/20 cursor-pointer"
+777:                >
+778:                  Otvoriť v navigácii
+779:                </motion.a>
+780:                <motion.a 
+781:                  href={CONTACT.facebook}
+782:                  target="_blank"
+783:                  rel="noopener noreferrer"
+784:                  whileHover={{ y: -4, scale: 1.02 }}
+785:                  whileTap={{ scale: 0.98 }}
+786:                  transition={{ type: "spring", stiffness: 400, damping: 15 }}
+787:                  className="w-full inline-flex items-center justify-center gap-2 px-8 py-5 bg-transparent border border-white/20 text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-white/10 cursor-pointer"
+788:                >
+789:                  <Facebook className="w-4 h-4 text-brand-peach-light" />
+790:                  Sledovať na Facebooku
+791:                </motion.a>
+792:              </div>
+793:           </div>
+794:        </div>
+795:      </div>
+796:    </section>
+797:  );
+798:}
+799:
+800:function Footer() {
+801:  return (
+802:    <footer className="bg-brand-green-dark pt-16 pb-12 px-6 md:px-12 border-t border-white/10">
+803:      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+804:        
+805:        {/* Main top row: Navigation Legal items */}
+806:        <div className="flex flex-col items-center justify-center gap-8 pb-8 border-b border-white/5">
+807:          <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-white/50">
+808:             <a href="#sluzby" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Služby</a>
+809:             <a href="#cennik" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Cenník</a>
+810:             <a href="#o-nas" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">O nás</a>
+811:             <a href="#gdpr" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Ochrana osobných údajov</a>
+812:             <a href="#cookies" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Cookies</a>
+813:             <button 
+814:               onClick={() => {
+815:                 // Reopen cookie consent banner
+816:                 window.dispatchEvent(new CustomEvent("open-cookie-settings"));
+817:               }} 
+818:               className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors cursor-pointer text-left"
+819:             >
+820:               Nastavenia cookies
+821:             </button>
+822:             <a href="#kontakt" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">Kontakt</a>
+823:             <a href={CONTACT.facebook} target="_blank" rel="noopener noreferrer" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors inline-flex items-center gap-1">
+824:               <Facebook className="w-2.5 h-2.5" /> Facebook
+825:             </a>
+826:          </div>
+827:        </div>
+828:
+829:        {/* Separator and copyright bottom row */}
+830:        <div className="text-center">
+831:          <p className="text-[10px] uppercase tracking-[0.3em] text-white/30">
+832:            © {new Date().getFullYear()} Baan Thai Massage Galanta. Všetky práva vyhradené.
+833:          </p>
+834:        </div>
+835:
+836:      </div>
+837:    </footer>
+838:  );
+839:}
+840:
+841:export default function App() {
+842:  const [currentPage, setCurrentPage] = useState<'home' | 'cookies' | 'gdpr'>('home');
+843:
+844:  useEffect(() => {
+845:    const handleHashChange = () => {
+846:      const hash = window.location.hash;
+847:      if (hash === "#cookies") {
+848:        setCurrentPage("cookies");
+849:        window.scrollTo({ top: 0, behavior: "smooth" });
+850:      } else if (hash === "#gdpr") {
+851:        setCurrentPage("gdpr");
+852:        window.scrollTo({ top: 0, behavior: "smooth" });
+853:      } else {
+854:        setCurrentPage("home");
+855:      }
+856:    };
+857:
+858:    // Run once on initial load to handle direct deep links
+859:    handleHashChange();
+860:
+861:    window.addEventListener("hashchange", handleHashChange);
+862:    return () => window.removeEventListener("hashchange", handleHashChange);
+863:  }, []);
+864:
+865:  return (
+866:    <div className="min-h-screen bg-bg-base text-text-dark font-sans selection:bg-brand-peach-light selection:text-brand-green-dark">
+867:      <Navbar />
+868:      <main>
+869:        {currentPage === "home" && (
+870:          <>
+871:            <Hero />
+872:            <Benefits />
+873:            <Services />
+874:            <Pricing />
+875:            <About />
+876:            <Contact />
+877:          </>
+878:        )}
+879:        {currentPage === "cookies" && <CookiesPage />}
+880:        {currentPage === "gdpr" && <GdprPage />}
+881:      </main>
+882:      <Footer />
+883:      <CookieConsent />
+884:    </div>
+885:  );
+886:}
