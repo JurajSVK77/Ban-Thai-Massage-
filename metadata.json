@@ -1,0 +1,6 @@
+{
+  "name": "Baan Thai Massage Galanta",
+  "description": "Autentický salón thajských masáží v Galante. Zrelaxujte telo a myseľ s našimi certifikovanými terapeutkami.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
