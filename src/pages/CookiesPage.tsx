@@ -129,9 +129,9 @@ export function CookiesPage() {
           <section className="space-y-6 pt-6 border-t border-brand-green-light/20">
             <h2 className="text-2xl font-serif text-brand-green-dark">Prevádzkovateľ webovej stránky</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 bg-brand-green-dark/[0.02] border border-brand-green-light/10 p-6 rounded-2xl font-normal">
-              <div>
+              <div className="sm:col-span-2">
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Obchodné meno</p>
-                <p className="text-brand-green-dark font-medium font-serif">Kanlaya Kruzlik</p>
+                <p className="text-brand-green-dark font-medium font-serif">Kanlaya Kruzlik - Baan Thai Massage</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Sídlo / miesto podnikania</p>
@@ -139,7 +139,23 @@ export function CookiesPage() {
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">IČO</p>
-                <p className="text-brand-green-dark font-medium font-mono">56 166 231</p>
+                <p className="text-brand-green-dark font-medium font-mono">57664315</p>
+              </div>
+              <div className="sm:col-span-2">
+                <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Registrácia</p>
+                <p className="text-brand-green-dark font-medium">Zapísaná v živnostenskom registri Okresného úradu Galanta</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Číslo živnostenského registra</p>
+                <p className="text-brand-green-dark font-medium font-mono">220-43111</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Deň vzniku oprávnenia</p>
+                <p className="text-brand-green-dark font-medium font-mono">28.05.2026</p>
+              </div>
+              <div className="sm:col-span-2">
+                <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Predmet podnikania</p>
+                <p className="text-brand-green-dark font-medium">Wellness masérske služby</p>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">E-mail</p>
@@ -149,7 +165,7 @@ export function CookiesPage() {
                   </a>
                 </p>
               </div>
-              <div className="sm:col-span-2">
+              <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Telefón</p>
                 <p className="text-brand-green-dark font-medium">
                   <a href="tel:+421905299613" className="hover:text-brand-peach-dark transition-colors font-mono">
