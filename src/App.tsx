@@ -42,7 +42,11 @@ const CONTACT = {
   facebook: "https://www.facebook.com/baanthaimassagegalanta/",
   email: "info@baanthamassage.sk",
   address: "Hody 1679, Galanta",
-  mapsLink: "https://maps.app.goo.gl/we7AN2ndrdAphjtd7"
+  mapsLink: "https://maps.app.goo.gl/we7AN2ndrdAphjtd7",
+  bankAccount: {
+    iban: "SK09 8360 5207 0042 0988 6242",
+    bankDetails: "mBank S.A., pobočka zahraničnej banky"
+  }
 };
 
 const SERVICES = [
@@ -777,6 +781,18 @@ function Contact() {
                          <span className="text-white/80 font-light">{t('contact.days2')}</span>
                          <span className="text-white font-serif">{HOURS[1].time}</span>
                       </div>
+                </div>
+             </div>
+
+             <div>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-3">{t('contact.accountLabel')}</p>
+                <div className="flex flex-col gap-1">
+                  <div className="text-xl text-white/90 font-mono font-light tracking-wide hover:text-brand-peach-light transition-colors cursor-all-scroll select-all">
+                    IBAN: {CONTACT.bankAccount.iban}
+                  </div>
+                  <div className="text-sm text-white/70 font-light hover:text-brand-peach-light transition-colors">
+                    Banka: {CONTACT.bankAccount.bankDetails}
+                  </div>
                 </div>
              </div>
           </div>

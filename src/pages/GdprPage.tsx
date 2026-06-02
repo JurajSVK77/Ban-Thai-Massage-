@@ -86,6 +86,11 @@ export function GdprPage() {
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Predmet podnikania</p>
                 <p className="text-brand-green-dark font-medium">Wellness masérske služby</p>
               </div>
+              <div className="sm:col-span-2">
+                <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Číslo účtu</p>
+                <p className="text-brand-green-dark font-medium font-mono">IBAN: SK09 8360 5207 0042 0988 6242</p>
+                <p className="text-brand-green-dark font-medium font-mono mt-0.5">Banka: mBank S.A., pobočka zahraničnej banky</p>
+              </div>
               <div>
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">E-mail</p>
                 <p className="text-brand-green-dark font-medium">
