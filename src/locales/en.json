@@ -77,20 +77,16 @@
       "note": "dry acupressure massage with stretching"
     },
     "p4": {
-      "name": "Sports massage",
-      "note": "intensive regenerative massage for stiff muscles"
-    },
-    "p5": {
       "name": "Thai foot massage",
       "note": "reflexology focused on acupressure points"
     },
-    "p6": {
+    "p5": {
       "name": "Back and shoulder massage",
       "note": "targeted relaxation of the neck, shoulders and whole spine"
     },
-    "p7": {
-      "name": "Hot oil massage",
-      "note": "aromatic oil massage with heated oil"
+    "p6": {
+      "name": "Hot coconut oil massage",
+      "note": "aromatic massage with heated coconut oil"
     },
     "bookingInfo": "We recommend booking all massages in advance. We will be happy to welcome you to our charming and cozy salon in Hody."
   },

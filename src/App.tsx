@@ -112,11 +112,6 @@ const PRICING_DATA = [
     prices: { "30": null, "60": 40, "90": 56 }
   },
   {
-    name: "Športová masáž",
-    note: "intenzívna regeneračná masáž pre stuhnuté svaly",
-    prices: { "30": null, "60": 40, "90": 56 }
-  },
-  {
     name: "Thajská masáž nôh",
     note: "reflexná masáž zameraná na akupresúrne body",
     prices: { "30": 25, "60": 40, "90": 56 }
@@ -127,9 +122,9 @@ const PRICING_DATA = [
     prices: { "30": 25, "60": 40, "90": 56 }
   },
   {
-    name: "Masáž horúcim olejom",
-    note: "aromatická olejová masáž s nahriatým olejom",
-    prices: { "30": null, "60": 43, "90": 56 }
+    name: "Masáž s horúcim kokosovým olejom",
+    note: "aromatická masáž s nahriatym kokosovým olejom",
+    prices: { "30": null, "60": 45, "90": 62 }
   }
 ];
 

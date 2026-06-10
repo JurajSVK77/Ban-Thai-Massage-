@@ -77,20 +77,16 @@
       "note": "suchá akupresúrna masáž so strečingom"
     },
     "p4": {
-      "name": "Športová masáž",
-      "note": "intenzívna regeneračná masáž pre stuhnuté svaly"
-    },
-    "p5": {
       "name": "Thajská masáž nôh",
       "note": "reflexná masáž zameraná na akupresúrne body"
     },
-    "p6": {
+    "p5": {
       "name": "Masáž chrbta a ramien",
       "note": "cielené uvoľnenie šije, ramien a celej chrbtice"
     },
-    "p7": {
-      "name": "Masáž horúcim olejom",
-      "note": "aromatická olejová masáž s nahriatým olejom"
+    "p6": {
+      "name": "Masáž s horúcim kokosovým olejom",
+      "note": "aromatická masáž s nahriatym kokosovým olejom"
     },
     "bookingInfo": "Všetky masáže odporúčame rezervovať vopred. Radi vás privítame v našom očarujúcom a útulnom salóne v Hody."
   },
