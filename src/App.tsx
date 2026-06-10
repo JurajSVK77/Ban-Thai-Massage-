@@ -114,12 +114,12 @@ const PRICING_DATA = [
   {
     name: "Thajská masáž nôh",
     note: "reflexná masáž zameraná na akupresúrne body",
-    prices: { "30": 25, "60": 40, "90": 56 }
+    prices: { "30": 25, "60": 40, "90": null }
   },
   {
     name: "Masáž chrbta a ramien",
     note: "cielené uvoľnenie šije, ramien a celej chrbtice",
-    prices: { "30": 25, "60": 40, "90": 56 }
+    prices: { "30": 25, "60": 40, "90": null }
   },
   {
     name: "Masáž s horúcim kokosovým olejom",
@@ -605,11 +605,11 @@ function Pricing() {
 
                     {/* 90 min */}
                     {(selectedDuration === "all" || selectedDuration === "90") && (
-                      <div className={`flex flex-col items-center justify-center min-w-[75px] py-2 px-3 rounded-xl transition-all bg-brand-peach-light/30 border border-brand-peach-dark/25 text-brand-peach-dark relative overflow-hidden group-hover:scale-105 duration-300 shadow-sm`}>
-                        <div className="absolute inset-0 bg-brand-peach-dark/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                        <span className="text-[9px] tracking-widest uppercase font-bold text-brand-peach-dark/85">90 min</span>
-                        <span className="text-sm font-bold font-serif mt-0.5 flex items-baseline gap-0.5 text-brand-peach-dark">
-                          {item.prices["90"]} €
+                      <div className={`flex flex-col items-center justify-center min-w-[75px] py-1.5 px-2 rounded-xl transition-all ${item.prices["90"] ? 'bg-brand-peach-light/30 border border-brand-peach-dark/25 text-brand-peach-dark relative overflow-hidden group-hover:scale-105 shadow-sm py-2 px-3' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'} duration-300`}>
+                        {item.prices["90"] && <div className="absolute inset-0 bg-brand-peach-dark/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>}
+                        <span className={`text-[9px] tracking-widest uppercase ${item.prices["90"] ? 'font-bold text-brand-peach-dark/85' : 'opacity-60'}`}>90 min</span>
+                        <span className={`text-sm mt-0.5 flex items-baseline gap-0.5 font-serif ${item.prices["90"] ? 'font-bold text-brand-peach-dark' : 'font-medium'}`}>
+                          {item.prices["90"] ? `${item.prices["90"]} €` : '—'}
                         </span>
                       </div>
                     )}
