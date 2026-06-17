@@ -141,6 +141,42 @@ const staggerContainer = {
   }
 };
 
+const BookioButton = ({ className = "" }: { className?: string }) => {
+  return (
+    <a 
+      target="_blank" 
+      rel="noreferrer"
+      style={{
+        minHeight: '37px', 
+        padding: '10px 35px 10px 40px', 
+        position: 'relative', 
+        display: 'inline-flex', 
+        alignItems: 'center', 
+        justifyContent: 'center', 
+        cursor: 'pointer', 
+        overflow: 'hidden', 
+        textDecoration: 'none', 
+        borderRadius: '10px', 
+        color: '#000000', 
+        backgroundColor: '#c5dea7',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+      }} 
+      className={`hover:opacity-90 hover:scale-[1.02] active:scale-95 transition-all ${className}`}
+      href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
+    >
+      <div style={{
+        position: 'absolute', 
+        left: 0, 
+        top: 0, 
+        height: '100%', 
+        width: '30px', 
+        background: '#36474f url(https://services.bookio.com/assets/b-bodka-32x32.png) no-repeat center'
+      }}></div>
+      <span className="font-medium text-[13px] tracking-wide ml-1">Rezervácia termínu</span>
+    </a>
+  );
+};
+
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -314,7 +350,7 @@ function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 mt-10 md:mt-12"
+          className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 mt-10 md:mt-12"
         >
           <motion.a 
             href={`#sluzby`}
@@ -325,6 +361,9 @@ function Hero() {
           >
             {t('hero.cta')}
           </motion.a>
+          
+          <BookioButton className="w-full sm:w-auto mt-2 sm:mt-0" />
+          
           <motion.a 
             href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
             whileHover={{ y: -4, scale: 1.02 }}
@@ -813,7 +852,8 @@ function Contact() {
                 DIČ: 1131228065
               </p>
               
-              <div className="pt-8 w-full flex flex-col gap-4">
+              <div className="pt-8 w-full flex flex-col items-center gap-4">
+                <BookioButton className="w-full" />
                 <motion.a 
                   href={CONTACT.mapsLink}
                   target="_blank"
