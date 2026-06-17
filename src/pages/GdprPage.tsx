@@ -70,6 +70,10 @@ export function GdprPage() {
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">IČO</p>
                 <p className="text-brand-green-dark font-medium font-mono">57664315</p>
               </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">DIČ</p>
+                <p className="text-brand-green-dark font-medium font-mono">1131228065</p>
+              </div>
               <div className="sm:col-span-2">
                 <p className="text-xs uppercase tracking-[0.15em] text-text-muted mb-1">Registrácia</p>
                 <p className="text-brand-green-dark font-medium">Zapísaná v živnostenskom registri Okresného úradu Galanta</p>

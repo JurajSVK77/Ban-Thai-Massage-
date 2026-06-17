@@ -808,7 +808,9 @@ function Contact() {
                 <strong className="text-white font-serif text-2xl font-normal tracking-wide block mb-2">Baan Thai Massage Galanta</strong>
                 Hody 1679<br/>
                 924 01 Galanta<br/>
-                Slovensko
+                Slovensko<br/>
+                IČO: 57664315<br/>
+                DIČ: 1131228065
               </p>
               
               <div className="pt-8 w-full flex flex-col gap-4">
