@@ -11,7 +11,8 @@ if (empty($message)) {
     exit;
 }
 
-$apiKey = getenv('OPENAI_API_KEY');
+require_once __DIR__ . '/../../shared/openai-config.php';
+$apiKey = OPENAI_API_KEY;
 
 if (!$apiKey) {
     echo json_encode([
