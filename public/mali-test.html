@@ -76,11 +76,13 @@
                     body: JSON.stringify({ message: message })
                 });
 
+                const rawText = await response.text();
+
                 if (!response.ok) {
-                    throw new Error(`HTTP chyba! status: ${response.status}`);
+                    throw new Error(`Chyba servera: status ${response.status} - ${rawText}`);
                 }
 
-                const data = await response.json();
+                const data = JSON.parse(rawText);
                 responseContainer.textContent = data.reply;
             } catch (error) {
                 responseContainer.textContent = 'Chyba: ' + error.message;
