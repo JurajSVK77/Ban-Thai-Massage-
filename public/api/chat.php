@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 header('Content-Type: application/json; charset=utf-8');
 
 $input = json_decode(file_get_contents('php://input'), true);
@@ -11,7 +15,17 @@ if (empty($message)) {
     exit;
 }
 
-require_once __DIR__ . '/../../shared/openai-config.php';
+$configPath = __DIR__ . '/../../shared/openai-config.php';
+
+if (!file_exists($configPath)) {
+    http_response_code(500);
+    echo json_encode([
+        "reply" => "DEBUG: Config súbor neexistuje na ceste: " . $configPath
+    ]);
+    exit;
+}
+
+require_once $configPath;
 $apiKey = OPENAI_API_KEY;
 
 if (!$apiKey) {
