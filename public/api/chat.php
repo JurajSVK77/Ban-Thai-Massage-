@@ -15,7 +15,14 @@ $apiKey = getenv('OPENAI_API_KEY');
 
 if (!$apiKey) {
     echo json_encode([
-        "reply" => "Momentálne sa mi nepodarilo odpovedať. Skúste to prosím o chvíľu znova."
+        "reply" => "DEBUG: OPENAI_API_KEY sa nenašiel na serveri."
+    ]);
+    exit;
+}
+
+if (!function_exists('curl_init')) {
+    echo json_encode([
+        "reply" => "DEBUG: cURL nie je dostupné na serveri."
     ]);
     exit;
 }
@@ -51,7 +58,7 @@ curl_close($ch);
 
 if ($httpCode !== 200 || !$response) {
     echo json_encode([
-        "reply" => "Momentálne sa mi nepodarilo odpovedať. Skúste to prosím o chvíľu znova."
+        "reply" => "DEBUG: OpenAI HTTP chyba: " . $httpCode
     ]);
     exit;
 }
