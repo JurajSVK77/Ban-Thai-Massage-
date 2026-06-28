@@ -11,7 +11,7 @@ if (empty($message)) {
     exit;
 }
 
-$configPath = __DIR__ . '/../../../../shared/openai-config.php';
+$configPath = __DIR__ . '/../../../shared/openai-config.php';
 if (!file_exists($configPath)) {
     echo json_encode([
         "reply" => "DEBUG: Config súbor neexistuje na ceste: " . $configPath
