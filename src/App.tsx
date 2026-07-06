@@ -163,6 +163,13 @@ const BookioButton = ({ className = "" }: { className?: string }) => {
       }} 
       className={`hover:opacity-90 hover:scale-[1.02] active:scale-95 transition-all ${className}`}
       href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
+      onClick={() => {
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'conversion', {
+            'send_to': 'AW-18303717684/oYj_CNKC3MscELSi8pdE'
+          });
+        }
+      }}
     >
       <div style={{
         position: 'absolute', 
