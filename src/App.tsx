@@ -211,6 +211,7 @@ function Navbar() {
             
             <div className="hidden md:flex items-center space-x-10">
               <a href="#sluzby" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.services')}</a>
+              <a href="#gift-cards" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.giftCards')}</a>
               <a href="#cennik" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.pricing')}</a>
               <a href="#o-nas" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.about')}</a>
               <a href="#kontakt" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.contact')}</a>
@@ -262,6 +263,7 @@ function Navbar() {
             className="fixed inset-0 z-40 bg-bg-base/95 backdrop-blur-xl flex flex-col justify-center items-center space-y-8"
           >
             <a href="#sluzby" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.services')}</a>
+            <a href="#gift-cards" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.giftCards')}</a>
             <a href="#cennik" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.pricing')}</a>
             <a href="#o-nas" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.about')}</a>
             <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.contact')}</a>
@@ -527,6 +529,84 @@ function Services() {
             </motion.div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function GiftCards() {
+  const { t } = useTranslation();
+  return (
+    <section id="gift-cards" className="py-32 bg-brand-green-dark relative overflow-hidden text-white">
+      {/* Decorative vectors / blobs */}
+      <div className="absolute top-[20%] left-[-10%] w-[400px] h-[400px] bg-brand-peach-light/10 blur-[120px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-[10%] right-[-10%] w-[400px] h-[400px] bg-brand-peach-dark/15 blur-[120px] rounded-full pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="max-w-2xl"
+        >
+          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-light mb-4 block">{t('giftCards.label')}</span>
+          <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">{t('giftCards.title')}</h2>
+          <div className="w-16 h-[1px] bg-brand-peach-light mx-auto mb-6"></div>
+          
+          <p className="text-white/80 font-light leading-relaxed mb-10 text-lg">
+            {t('giftCards.desc')}
+          </p>
+
+          <div className="flex flex-col items-start gap-4 text-left max-w-sm mx-auto mb-12">
+            <div className="flex items-start gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-brand-peach-light mt-2 shrink-0"></div>
+              <p className="text-white/90 font-light text-sm">{t('giftCards.benefit1')}</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-brand-peach-light mt-2 shrink-0"></div>
+              <p className="text-white/90 font-light text-sm">{t('giftCards.benefit2')}</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-brand-peach-light mt-2 shrink-0"></div>
+              <p className="text-white/90 font-light text-sm">{t('giftCards.benefit3')}</p>
+            </div>
+            <div className="flex items-start gap-3">
+              <div className="w-1.5 h-1.5 rounded-full bg-brand-peach-light mt-2 shrink-0"></div>
+              <p className="text-white/90 font-light text-sm">{t('giftCards.benefit4')}</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+             <motion.a 
+                href="https://services.bookio.com/baan-thai-massage-galanta/gift-cards"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'conversion', {
+                      'send_to': 'AW-18303717684/oYj_CNKC3MscELSi8pdE'
+                    });
+                  }
+                }}
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-peach-light text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all shadow-lg hover:bg-white hover:shadow-brand-peach-light/20 cursor-pointer"
+             >
+                {t('giftCards.buy')}
+             </motion.a>
+             <motion.a 
+                href="#sluzby"
+                whileHover={{ y: -4, scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                transition={{ type: "spring", stiffness: 400, damping: 15 }}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-transparent border border-white/20 text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-white/10 cursor-pointer"
+             >
+                {t('giftCards.viewServices')}
+             </motion.a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -902,6 +982,7 @@ function Footer() {
         <div className="flex flex-col items-center justify-center gap-8 pb-8 border-b border-white/5">
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-white/50">
              <a href="#sluzby" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.services')}</a>
+             <a href="#gift-cards" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.giftCards')}</a>
              <a href="#cennik" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.pricing')}</a>
              <a href="#o-nas" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.about')}</a>
              <a href="#gdpr" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('footer.privacy')}</a>
@@ -967,6 +1048,7 @@ export default function App() {
             <Hero />
             <Benefits />
             <Services />
+            <GiftCards />
             <Pricing />
             <About />
             <Contact />

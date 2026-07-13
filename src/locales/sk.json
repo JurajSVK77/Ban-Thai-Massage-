@@ -1,6 +1,7 @@
 {
   "nav": {
     "services": "Služby",
+    "giftCards": "Darčekové poukážky",
     "pricing": "Cenník",
     "about": "O nás",
     "contact": "Kontakt",
@@ -115,6 +116,17 @@
     "locationDesc": "Nájdete nás v príjemnej lokalite Hody. Parkovanie je zabezpečené priamo pred salónom.",
     "openMap": "Otvoriť v navigácii",
     "followFb": "Sledovať na Facebooku"
+  },
+  "giftCards": {
+    "label": "DARČEKOVÉ POUKÁŽKY",
+    "title": "Darujte chvíľu pokoja a rovnováhy",
+    "desc": "Darčeková poukážka Baan Thai Massage je príjemným darčekom pre každého, kto si zaslúži oddych, regeneráciu a chvíľu len pre seba. Poukážku môžete jednoducho zakúpiť online cez rezervačný systém Bookio.",
+    "benefit1": "jednoduchý nákup online",
+    "benefit2": "vhodný darček pre vašich blízkych",
+    "benefit3": "možnosť vybrať si z ponuky masáží",
+    "benefit4": "pohodlné vybavenie cez Bookio",
+    "buy": "Kúpiť darčekovú poukážku",
+    "viewServices": "Pozrieť ponuku masáží"
   },
   "footer": {
     "privacy": "Ochrana osobných údajov",

@@ -1,6 +1,7 @@
 {
   "nav": {
     "services": "Services",
+    "giftCards": "Gift Cards",
     "pricing": "Pricing",
     "about": "About Us",
     "contact": "Contact",
@@ -115,6 +116,17 @@
     "locationDesc": "You will find us in a pleasant location in Hody. Parking is provided right in front of the salon.",
     "openMap": "Open in Maps",
     "followFb": "Follow on Facebook"
+  },
+  "giftCards": {
+    "label": "GIFT CARDS",
+    "title": "Give the gift of peace and balance",
+    "desc": "A Baan Thai Massage gift card is a pleasant gift for anyone who deserves rest, regeneration and a moment just for themselves. You can easily purchase the voucher online through the Bookio reservation system.",
+    "benefit1": "easy online purchase",
+    "benefit2": "a suitable gift for your loved ones",
+    "benefit3": "possibility to choose from a range of massages",
+    "benefit4": "convenient processing via Bookio",
+    "buy": "Buy a gift card",
+    "viewServices": "View massage menu"
   },
   "footer": {
     "privacy": "Privacy Policy",
