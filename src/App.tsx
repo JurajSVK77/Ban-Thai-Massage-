@@ -17,6 +17,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useTranslation } from "react-i18next";
 import { BaanLogo } from "./components/BaanLogo";
 import { CookieConsent } from "./components/CookieConsent";
+import { GiftCardPopup } from "./components/GiftCardPopup";
 import { CookiesPage } from "./pages/CookiesPage";
 import { GdprPage } from "./pages/GdprPage";
 // @ts-ignore
@@ -1059,6 +1060,7 @@ export default function App() {
       </main>
       <Footer />
       <CookieConsent />
+      <GiftCardPopup />
     </div>
   );
 }
