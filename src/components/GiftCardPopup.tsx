@@ -4,24 +4,11 @@ import { X } from 'lucide-react';
 import giftCardImg from '../assets/images/darcekova_poukazka.png';
 
 const POPUP_DELAY_MS = 5000;
-const POPUP_COOLDOWN_DAYS = 7;
-const STORAGE_KEY = 'gift_card_popup_closed';
 
 export function GiftCardPopup() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    // Check localStorage
-    const closedAt = localStorage.getItem(STORAGE_KEY);
-    if (closedAt) {
-      const closedTime = parseInt(closedAt, 10);
-      const now = new Date().getTime();
-      const diffDays = (now - closedTime) / (1000 * 60 * 60 * 24);
-      if (diffDays < POPUP_COOLDOWN_DAYS) {
-        return; // Don't show
-      }
-    }
-
     const timer = setTimeout(() => {
       setIsOpen(true);
     }, POPUP_DELAY_MS);
@@ -41,7 +28,6 @@ export function GiftCardPopup() {
 
   const handleClose = () => {
     setIsOpen(false);
-    localStorage.setItem(STORAGE_KEY, new Date().getTime().toString());
   };
 
   const handleBuyClick = () => {
