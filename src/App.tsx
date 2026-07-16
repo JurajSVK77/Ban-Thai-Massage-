@@ -100,32 +100,32 @@ const PRICING_DATA = [
   {
     name: "Relaxačná olejová masáž",
     note: "klasická olejová masáž",
-    prices: { "30": null, "60": 40, "90": 56 }
+    prices: { "30": null, "60": 40, "90": 56, "120": 70 }
   },
   {
     name: "Mix Thajská olejová masáž",
     note: "kombinácia tradičnej a olejovej masáže",
-    prices: { "30": null, "60": 40, "90": 56 }
+    prices: { "30": null, "60": 40, "90": 56, "120": 70 }
   },
   {
     name: "Tradičná thajská masáž",
     note: "suchá akupresúrna masáž so strečingom",
-    prices: { "30": null, "60": 40, "90": 56 }
+    prices: { "30": null, "60": 40, "90": 56, "120": 70 }
   },
   {
     name: "Thajská masáž nôh",
     note: "reflexná masáž zameraná na akupresúrne body",
-    prices: { "30": 25, "60": 40, "90": null }
+    prices: { "30": 25, "60": 40, "90": null, "120": null }
   },
   {
     name: "Masáž chrbta a ramien",
     note: "cielené uvoľnenie šije, ramien a celej chrbtice",
-    prices: { "30": 25, "60": 40, "90": null }
+    prices: { "30": 25, "60": 40, "90": null, "120": null }
   },
   {
     name: "Masáž s horúcim kokosovým olejom",
     note: "aromatická masáž s nahriatym kokosovým olejom",
-    prices: { "30": null, "60": 45, "90": 62 }
+    prices: { "30": null, "60": 45, "90": 62, "120": null }
   }
 ];
 
@@ -615,7 +615,7 @@ function GiftCards() {
 
 function Pricing() {
   const { t } = useTranslation();
-  const [selectedDuration, setSelectedDuration] = useState<"all" | "30" | "60" | "90">("all");
+  const [selectedDuration, setSelectedDuration] = useState<"all" | "30" | "60" | "90" | "120">("all");
 
   const filteredData = PRICING_DATA.filter((item) => {
     if (selectedDuration === "all") return true;
@@ -654,7 +654,7 @@ function Pricing() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="flex justify-center mb-16"
         >
-          <div className="bg-white/85 backdrop-blur-md p-1.5 rounded-full border border-brand-green-light/25 shadow-md inline-flex gap-1">
+          <div className="bg-white/85 backdrop-blur-md p-1.5 rounded-3xl sm:rounded-full border border-brand-green-light/25 shadow-md inline-flex flex-wrap justify-center gap-1">
             <button
               onClick={() => setSelectedDuration("all")}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "all" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
@@ -679,6 +679,12 @@ function Pricing() {
             >
               90 min
             </button>
+            <button
+              onClick={() => setSelectedDuration("120")}
+              className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "120" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
+            >
+              120 min
+            </button>
           </div>
         </motion.div>
 
@@ -689,7 +695,7 @@ function Pricing() {
             <AnimatePresence mode="popLayout">
               {filteredData.map((item, index) => (
                 <motion.div
-                  layout
+                   layout
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -12 }}
@@ -713,7 +719,7 @@ function Pricing() {
                     )}
                   </div>
 
-                  <div className="flex items-center gap-4 shrink-0">
+                  <div className="flex items-center flex-wrap gap-2.5 sm:gap-4 justify-start sm:justify-end w-full sm:w-auto shrink-0 mt-2 sm:mt-0">
                     {/* 30 min */}
                     {(selectedDuration === "all" || selectedDuration === "30") && (
                       <div className={`flex flex-col items-center justify-center min-w-[70px] py-1.5 px-2 rounded-xl transition-all ${item.prices["30"] ? 'bg-bg-alt/65 border border-brand-green-light/20 text-text-dark shadow-sm' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'}`}>
@@ -738,6 +744,14 @@ function Pricing() {
                         <span className={`text-sm mt-0.5 flex items-baseline gap-0.5 font-serif ${item.prices["90"] ? 'font-bold text-brand-peach-dark' : 'font-medium'}`}>
                           {item.prices["90"] ? `${item.prices["90"]} €` : '—'}
                         </span>
+                      </div>
+                    )}
+
+                    {/* 120 min */}
+                    {(selectedDuration === "all" || selectedDuration === "120") && (
+                      <div className={`flex flex-col items-center justify-center min-w-[70px] py-1.5 px-2 rounded-xl transition-all ${item.prices["120"] ? 'bg-bg-alt/65 border border-brand-green-light/20 text-text-dark shadow-sm' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'}`}>
+                        <span className="text-[9px] tracking-wider uppercase opacity-60">120 min</span>
+                        <span className="text-sm font-medium font-serif mt-0.5">{item.prices["120"] ? `${item.prices["120"]} €` : '—'}</span>
                       </div>
                     )}
                   </div>

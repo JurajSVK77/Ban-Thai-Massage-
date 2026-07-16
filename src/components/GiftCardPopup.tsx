@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X } from 'lucide-react';
+// @ts-ignore
 import giftCardImg from '../assets/images/darcekova_poukazka.png';
 
 const POPUP_DELAY_MS = 5000;
