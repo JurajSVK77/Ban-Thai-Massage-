@@ -41,7 +41,7 @@ const CONTACT = {
   formattedPhone: "+421 905 299 613",
   formattedPhone2: "+421 918 854 630",
   facebook: "https://www.facebook.com/baanthaimassagegalanta/",
-  email: "info@baanthamassage.sk",
+  email: "info@baanthaimassage.sk",
   address: "Hody 1679, Galanta",
   mapsLink: "https://maps.app.goo.gl/we7AN2ndrdAphjtd7",
   bankAccount: {
