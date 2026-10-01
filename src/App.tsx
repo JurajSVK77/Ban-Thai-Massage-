@@ -125,7 +125,7 @@ const PRICING_DATA = [
   {
     name: "Masáž s horúcim kokosovým olejom",
     note: "aromatická masáž s nahriatym kokosovým olejom",
-    prices: { "30": null, "60": 45, "90": 62, "120": null }
+    prices: { "30": null, "60": 45, "90": 62, "120": 80 }
   }
 ];
 
@@ -614,7 +614,7 @@ function GiftCards() {
 }
 
 function Pricing() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedDuration, setSelectedDuration] = useState<"all" | "30" | "60" | "90" | "120">("all");
 
   const filteredData = PRICING_DATA.filter((item) => {
@@ -665,25 +665,25 @@ function Pricing() {
               onClick={() => setSelectedDuration("30")}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "30" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
             >
-              30 min
+              {t('pricing.30m', '30 min')}
             </button>
             <button
               onClick={() => setSelectedDuration("60")}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "60" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
             >
-              60 min
+              {t('pricing.60m', '60 min')}
             </button>
             <button
               onClick={() => setSelectedDuration("90")}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "90" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
             >
-              90 min
+              {t('pricing.90m', '90 min')}
             </button>
             <button
               onClick={() => setSelectedDuration("120")}
               className={`px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-300 ${selectedDuration === "120" ? 'bg-brand-green-dark text-white shadow-sm' : 'text-text-muted hover:text-brand-green-dark cursor-pointer'}`}
             >
-              120 min
+              {t('pricing.120m', '120 min')}
             </button>
           </div>
         </motion.div>
@@ -693,70 +693,105 @@ function Pricing() {
           
           <div className="space-y-2">
             <AnimatePresence mode="popLayout">
-              {filteredData.map((item, index) => (
-                <motion.div
-                   layout
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  transition={{ duration: 0.4 }}
-                  key={item.name}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between py-6 border-b border-brand-green-light/10 last:border-0 hover:bg-bg-alt/30 px-4 md:px-6 rounded-2xl transition-all duration-300 group"
-                >
-                  <div className="flex-1 pr-6 mb-4 sm:mb-0">
-                    <div className="flex items-center gap-3">
-                      <h3 className="text-xl md:text-2xl font-serif text-text-dark group-hover:text-brand-green-dark transition-colors">{t(`pricing.p${index + 1}.name`)}</h3>
-                      {item.prices["90"] && selectedDuration === "all" && (
-                        <span className="hidden sm:inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest bg-brand-peach-light/35 border border-brand-peach-dark/25 text-brand-peach-dark font-semibold">
-                          {t('pricing.special')}
-                        </span>
+              {filteredData.map((item, index) => {
+                const originalIndex = PRICING_DATA.findIndex(p => p.name === item.name);
+                const pKey = originalIndex !== -1 ? originalIndex + 1 : index + 1;
+
+                return (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -12 }}
+                    transition={{ duration: 0.4 }}
+                    key={item.name}
+                    className="flex flex-col sm:flex-row sm:items-center justify-between py-5 md:py-6 border-b border-brand-green-light/10 last:border-0 hover:bg-bg-alt/30 px-3 sm:px-4 md:px-6 rounded-2xl transition-all duration-300 group gap-3 sm:gap-4"
+                  >
+                    <div className="flex-1 min-w-0 pr-0 sm:pr-4">
+                      <div className="flex items-center gap-2.5 flex-wrap">
+                        <h3 className="text-xl md:text-2xl font-serif text-text-dark group-hover:text-brand-green-dark transition-colors">
+                          {t(`pricing.p${pKey}.name`)}
+                        </h3>
+                        {item.prices["90"] && selectedDuration === "all" && (
+                          <span className="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest bg-brand-peach-light/40 border border-brand-peach-dark/25 text-brand-peach-dark font-semibold whitespace-nowrap shadow-xs">
+                            {i18n.language === 'en' ? `90 min only €${item.prices["90"]}` : `90 min len ${item.prices["90"]}€`}
+                          </span>
+                        )}
+                      </div>
+                      {item.note && (
+                        <p className="text-xs text-text-muted mt-1.5 font-light italic uppercase tracking-wider">
+                          ({t(`pricing.p${pKey}.note`)})
+                        </p>
                       )}
                     </div>
-                    {item.note && (
-                      <p className="text-xs text-text-muted mt-1.5 font-light italic uppercase tracking-wider">
-                        ({t(`pricing.p${index + 1}.note`)})
-                      </p>
-                    )}
-                  </div>
 
-                  <div className="flex items-center flex-wrap gap-2.5 sm:gap-4 justify-start sm:justify-end w-full sm:w-auto shrink-0 mt-2 sm:mt-0">
-                    {/* 30 min */}
-                    {(selectedDuration === "all" || selectedDuration === "30") && (
-                      <div className={`flex flex-col items-center justify-center min-w-[70px] py-1.5 px-2 rounded-xl transition-all ${item.prices["30"] ? 'bg-bg-alt/65 border border-brand-green-light/20 text-text-dark shadow-sm' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'}`}>
-                        <span className="text-[9px] tracking-wider uppercase opacity-60">30 min</span>
-                        <span className="text-sm font-medium font-serif mt-0.5">{item.prices["30"] ? `${item.prices["30"]} €` : '—'}</span>
-                      </div>
-                    )}
+                    <div className={`${selectedDuration === "all" ? 'grid grid-cols-4 gap-2 w-full' : 'flex justify-end gap-2 w-full'} sm:w-auto sm:flex sm:items-center sm:gap-3 shrink-0`}>
+                      {/* 30 min */}
+                      {(selectedDuration === "all" || selectedDuration === "30") && (
+                        item.prices["30"] ? (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl transition-all bg-bg-alt/70 border border-brand-green-light/25 text-text-dark shadow-sm hover:border-brand-green/40">
+                            <span className="text-[9px] sm:text-[10px] tracking-wider uppercase opacity-60 font-medium">30 min</span>
+                            <span className="text-sm sm:text-base font-semibold font-serif mt-0.5 text-text-dark">{item.prices["30"]} €</span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl bg-bg-alt/20 border border-dashed border-brand-green-light/20 text-text-muted/35 select-none">
+                            <span className="text-[9px] sm:text-[10px] tracking-wider uppercase opacity-50">30 min</span>
+                            <span className="text-sm font-serif mt-0.5 opacity-50">—</span>
+                          </div>
+                        )
+                      )}
 
-                    {/* 60 min */}
-                    {(selectedDuration === "all" || selectedDuration === "60") && (
-                      <div className={`flex flex-col items-center justify-center min-w-[70px] py-1.5 px-2 rounded-xl transition-all ${item.prices["60"] ? 'bg-bg-alt/65 border border-brand-green-light/20 text-text-dark shadow-sm' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'}`}>
-                        <span className="text-[9px] tracking-wider uppercase opacity-60">60 min</span>
-                        <span className="text-sm font-medium font-serif mt-0.5">{item.prices["60"] ? `${item.prices["60"]} €` : '—'}</span>
-                      </div>
-                    )}
+                      {/* 60 min */}
+                      {(selectedDuration === "all" || selectedDuration === "60") && (
+                        item.prices["60"] ? (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl transition-all bg-bg-alt/70 border border-brand-green-light/25 text-text-dark shadow-sm hover:border-brand-green/40">
+                            <span className="text-[9px] sm:text-[10px] tracking-wider uppercase opacity-60 font-medium">60 min</span>
+                            <span className="text-sm sm:text-base font-semibold font-serif mt-0.5 text-text-dark">{item.prices["60"]} €</span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl bg-bg-alt/20 border border-dashed border-brand-green-light/20 text-text-muted/35 select-none">
+                            <span className="text-[9px] sm:text-[10px] tracking-wider uppercase opacity-50">60 min</span>
+                            <span className="text-sm font-serif mt-0.5 opacity-50">—</span>
+                          </div>
+                        )
+                      )}
 
-                    {/* 90 min */}
-                    {(selectedDuration === "all" || selectedDuration === "90") && (
-                      <div className={`flex flex-col items-center justify-center min-w-[75px] py-1.5 px-2 rounded-xl transition-all ${item.prices["90"] ? 'bg-brand-peach-light/30 border border-brand-peach-dark/25 text-brand-peach-dark relative overflow-hidden group-hover:scale-105 shadow-sm py-2 px-3' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'} duration-300`}>
-                        {item.prices["90"] && <div className="absolute inset-0 bg-brand-peach-dark/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>}
-                        <span className={`text-[9px] tracking-widest uppercase ${item.prices["90"] ? 'font-bold text-brand-peach-dark/85' : 'opacity-60'}`}>90 min</span>
-                        <span className={`text-sm mt-0.5 flex items-baseline gap-0.5 font-serif ${item.prices["90"] ? 'font-bold text-brand-peach-dark' : 'font-medium'}`}>
-                          {item.prices["90"] ? `${item.prices["90"]} €` : '—'}
-                        </span>
-                      </div>
-                    )}
+                      {/* 90 min */}
+                      {(selectedDuration === "all" || selectedDuration === "90") && (
+                        item.prices["90"] ? (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl transition-all bg-brand-peach-light/35 border border-brand-peach-dark/35 text-brand-peach-dark shadow-sm relative overflow-hidden group-hover:scale-[1.03] duration-300">
+                            <div className="absolute inset-0 bg-brand-peach-dark/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <span className="text-[9px] sm:text-[10px] tracking-widest uppercase font-bold text-brand-peach-dark/85">90 min</span>
+                            <span className="text-sm sm:text-base font-bold font-serif mt-0.5 text-brand-peach-dark">
+                              {item.prices["90"]} €
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl bg-bg-alt/20 border border-dashed border-brand-green-light/20 text-text-muted/35 select-none">
+                            <span className="text-[9px] sm:text-[10px] tracking-wider uppercase opacity-50">90 min</span>
+                            <span className="text-sm font-serif mt-0.5 opacity-50">—</span>
+                          </div>
+                        )
+                      )}
 
-                    {/* 120 min */}
-                    {(selectedDuration === "all" || selectedDuration === "120") && (
-                      <div className={`flex flex-col items-center justify-center min-w-[70px] py-1.5 px-2 rounded-xl transition-all ${item.prices["120"] ? 'bg-bg-alt/65 border border-brand-green-light/20 text-text-dark shadow-sm' : 'opacity-20 text-text-muted pb-4 border-b border-transparent'}`}>
-                        <span className="text-[9px] tracking-wider uppercase opacity-60">120 min</span>
-                        <span className="text-sm font-medium font-serif mt-0.5">{item.prices["120"] ? `${item.prices["120"]} €` : '—'}</span>
-                      </div>
-                    )}
-                  </div>
-                </motion.div>
-              ))}
+                      {/* 120 min */}
+                      {(selectedDuration === "all" || selectedDuration === "120") && (
+                        item.prices["120"] ? (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl transition-all bg-bg-alt/70 border border-brand-green-light/25 text-text-dark shadow-sm hover:border-brand-green/40">
+                            <span className="text-[9px] sm:text-[10px] tracking-wider uppercase opacity-60 font-medium">120 min</span>
+                            <span className="text-sm sm:text-base font-semibold font-serif mt-0.5 text-text-dark">{item.prices["120"]} €</span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center justify-center sm:w-[78px] h-14 rounded-xl bg-bg-alt/20 border border-dashed border-brand-green-light/20 text-text-muted/35 select-none">
+                            <span className="text-[9px] sm:text-[10px] tracking-wider uppercase opacity-50">120 min</span>
+                            <span className="text-sm font-serif mt-0.5 opacity-50">—</span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
           </div>
           
