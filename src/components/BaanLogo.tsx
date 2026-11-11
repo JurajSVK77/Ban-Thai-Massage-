@@ -9,6 +9,7 @@ interface BaanLogoProps {
 }
 
 export function BaanLogo({ className = "w-16 h-16", showText = true, theme = "light" }: BaanLogoProps) {
+
   let colorClass = "";
   if (!className.includes("text-") && !className.includes("text-[")) {
     if (theme === "custom") {

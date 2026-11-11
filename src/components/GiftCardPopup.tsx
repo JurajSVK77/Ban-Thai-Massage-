@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Sparkles, Gift } from 'lucide-react';
+import { useChristmasTheme } from './ChristmasTheme';
 // @ts-ignore
 import vianocnaGiftCardImg from '../assets/images/vianocna_darcekova_poukazka.png';
+// @ts-ignore
+import classicGiftCardImg from '../assets/images/darcekova_poukazka.png';
 
 const POPUP_DELAY_MS = 5000;
 const BOOKIO_URL = 'https://services.bookio.com/baan-thai-massage-galanta/gift-cards';
 
 export function GiftCardPopup() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isChristmas } = useChristmasTheme();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -80,11 +84,11 @@ export function GiftCardPopup() {
                 rel="noopener noreferrer"
                 onClick={handleBuyClick}
                 className="block w-full h-full cursor-pointer"
-                title="Kúpiť vianočnú darčekovú poukážku online"
+                title={isChristmas ? "Kúpiť vianočnú darčekovú poukážku online" : "Kúpiť darčekovú poukážku online"}
               >
                 <img
-                  src={vianocnaGiftCardImg}
-                  alt="Vianočná darčeková poukážka Baan Thai Massage"
+                  src={isChristmas ? vianocnaGiftCardImg : classicGiftCardImg}
+                  alt={isChristmas ? "Vianočná darčeková poukážka Baan Thai Massage" : "Darčeková poukážka Baan Thai Massage"}
                   loading="lazy"
                   className="w-full h-full object-cover select-none"
                 />
@@ -95,8 +99,8 @@ export function GiftCardPopup() {
             <div className="flex-1 p-6 sm:p-7 md:p-8 lg:p-9 flex flex-col justify-between bg-gradient-to-b from-white via-bg-alt/30 to-bg-alt/60 min-w-0">
               <div>
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-peach-light/25 border border-brand-peach-dark/20 text-brand-peach-dark text-[10px] uppercase tracking-[0.25em] font-bold mb-3">
-                  <Sparkles className="w-3 h-3 text-brand-peach-dark" />
-                  Vianočná darčeková poukážka
+                  {isChristmas && <Sparkles className="w-3 h-3 text-brand-peach-dark" />}
+                  {isChristmas ? "Vianočná darčeková poukážka" : "Darčekové poukážky"}
                 </div>
                 
                 <h2 className="text-2xl sm:text-3xl font-serif text-brand-green-dark leading-tight mb-2">
@@ -110,10 +114,12 @@ export function GiftCardPopup() {
                 <div className="w-12 h-[1px] bg-brand-peach-dark/40 mb-3.5"></div>
 
                 <p className="text-text-muted font-light text-xs sm:text-sm leading-relaxed mb-4">
-                  Potešte svojich blízkych pod stromčekom darom skutočného uvoľnenia a harmónie. Elektronickú vianočnú poukážku zakúpite pohodlne online cez Bookio a obdržíte ju okamžite do e-mailu.
+                  {isChristmas 
+                    ? "Potešte svojich blízkych pod stromčekom darom skutočného uvoľnenia a harmónie. Elektronickú vianočnú poukážku zakúpite pohodlne online cez Bookio a obdržíte ju okamžite do e-mailu."
+                    : "Elektronickú darčekovú poukážku zakúpite jednoducho online cez Bookio a môžete ju okamžite darovať svojim blízkym."}
                 </p>
 
-                {/* Festive highlight badges */}
+                {/* Highlight badges */}
                 <div className="grid grid-cols-2 gap-2 mb-4 text-xs text-text-dark">
                   <div className="flex items-center gap-2 p-2 rounded-xl bg-white/80 border border-brand-green-light/20">
                     <div className="w-2 h-2 rounded-full bg-brand-peach-dark shrink-0"></div>

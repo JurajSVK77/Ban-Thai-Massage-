@@ -10,7 +10,8 @@ import {
   Leaf,
   Droplet,
   Heart,
-  Facebook
+  Facebook,
+  Sparkles
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
@@ -18,6 +19,7 @@ import { useTranslation } from "react-i18next";
 import { BaanLogo } from "./components/BaanLogo";
 import { CookieConsent } from "./components/CookieConsent";
 import { GiftCardPopup } from "./components/GiftCardPopup";
+import { ChristmasThemeProvider, ChristmasNavToggle, ChristmasTopBanner, useChristmasTheme, SantaHat } from "./components/ChristmasTheme";
 import { CookiesPage } from "./pages/CookiesPage";
 import { GdprPage } from "./pages/GdprPage";
 // @ts-ignore
@@ -34,6 +36,8 @@ import masazNohImg from "./assets/images/Masaz_noh.png";
 import olejRukaImg from "./assets/images/Olej_ruka.png";
 // @ts-ignore
 import kontajnerImg from "./assets/images/Kontajner.png";
+// @ts-ignore
+import santaHatImg from "./assets/images/santa_hat.png";
 
 const CONTACT = {
   phone: "+421 905 299 613",
@@ -210,13 +214,15 @@ function Navbar() {
                <BaanLogo className="h-12 md:h-14 w-auto shrink-0 text-[#af8a54] group-hover:text-brand-green-dark transition-colors duration-300" showText={true} theme="custom" />
             </a>
             
-            <div className="hidden md:flex items-center space-x-10">
+            <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
               <a href="#sluzby" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.services')}</a>
               <a href="#gift-cards" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.giftCards')}</a>
               <a href="#cennik" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.pricing')}</a>
               <a href="#o-nas" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.about')}</a>
               <a href="#kontakt" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.contact')}</a>
               
+              <ChristmasNavToggle />
+
               <button onClick={toggleLanguage} className="text-xs tracking-[0.15em] uppercase font-bold text-brand-green-dark hover:text-brand-peach-dark transition-colors cursor-pointer w-8">
                 {i18n.language === 'en' ? 'SK' : 'EN'}
               </button>
@@ -236,7 +242,8 @@ function Navbar() {
               </motion.a>
             </div>
 
-            <div className="flex items-center md:hidden gap-4">
+            <div className="flex items-center md:hidden gap-3">
+              <ChristmasNavToggle />
               <button onClick={toggleLanguage} className="text-xs tracking-[0.1em] uppercase font-bold text-brand-green-dark cursor-pointer z-50">
                 {i18n.language === 'en' ? 'SK' : 'EN'}
               </button>
@@ -290,19 +297,49 @@ function Navbar() {
 
 function Hero() {
   const { t } = useTranslation();
+  const { isChristmas } = useChristmasTheme();
+
   return (
     <section className="relative pt-32 pb-12 overflow-hidden bg-bg-base flex flex-col items-center justify-center">
       <div className="w-full max-w-[1400px] mx-auto px-4 md:px-8 relative z-10">
         
         {/* Main title above the banner with expressive yet delicate display typography */}
         <div className="text-center mb-10 md:mb-14 max-w-4xl mx-auto px-4">
+          {isChristmas && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-peach-light/25 border border-brand-peach-dark/30 text-brand-peach-dark text-[11px] uppercase tracking-[0.22em] font-semibold mb-6 shadow-xs"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-brand-peach-dark" />
+              Sviatočný čas pokoja & Vianočného oddychu
+            </motion.div>
+          )}
+
           <motion.h1 
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light text-brand-green-dark tracking-wide leading-tight"
           >
-            {t('hero.title1')} <span className="italic font-normal text-brand-peach-dark">{t('hero.title2')}</span>
+            <span className="relative inline-block">
+              <span className="relative inline-block">
+                {isChristmas && (
+                  <motion.img
+                    src={santaHatImg}
+                    alt="Vianočná čiapka Baan Thai"
+                    initial={{ opacity: 0, scale: 0.7, y: -12 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.15, type: "spring", stiffness: 220, damping: 18 }}
+                    className="absolute -top-[70%] -left-[45%] sm:-top-[80%] sm:-left-[52%] md:-top-[88%] md:-left-[58%] w-[160%] sm:w-[175%] md:w-[190%] max-w-none pointer-events-none select-none z-20 drop-shadow-xl"
+                  />
+                )}
+                B
+              </span>
+              aan
+            </span>
+            {' '}Thai Massage <span className="italic font-normal text-brand-peach-dark">{t('hero.title2')}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0 }}
@@ -537,6 +574,8 @@ function Services() {
 
 function GiftCards() {
   const { t } = useTranslation();
+  const { isChristmas } = useChristmasTheme();
+
   return (
     <section id="gift-cards" className="py-32 bg-brand-green-dark relative overflow-hidden text-white">
       {/* Decorative vectors / blobs */}
@@ -551,7 +590,10 @@ function GiftCards() {
           transition={{ duration: 0.8 }}
           className="max-w-2xl"
         >
-          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-light mb-4 block">{t('giftCards.label')}</span>
+          <span className="text-[10px] uppercase tracking-[0.3em] font-semibold text-brand-peach-light mb-4 inline-flex items-center gap-1.5">
+            {isChristmas && <Sparkles className="w-3 h-3 text-brand-peach-light" />}
+            {isChristmas ? "Vianočné darčekové poukážky" : t('giftCards.label')}
+          </span>
           <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">{t('giftCards.title')}</h2>
           <div className="w-16 h-[1px] bg-brand-peach-light mx-auto mb-6"></div>
           
@@ -1024,6 +1066,8 @@ function Contact() {
 
 function Footer() {
   const { t } = useTranslation();
+  const { isChristmas } = useChristmasTheme();
+
   return (
     <footer className="bg-brand-green-dark pt-16 pb-12 px-6 md:px-12 border-t border-white/10">
       <div className="max-w-7xl mx-auto flex flex-col gap-10">
@@ -1053,6 +1097,17 @@ function Footer() {
           </div>
         </div>
 
+        {/* Festive footer greeting when Christmas mode is on */}
+        {isChristmas && (
+          <div className="text-center">
+            <p className="text-xs font-serif italic text-brand-peach-light/85 tracking-wide flex items-center justify-center gap-2">
+              <Sparkles className="w-3.5 h-3.5 text-brand-peach-light" />
+              Prajeme vám pokojné a požehnané vianočné sviatky plné oddychu a harmónie.
+              <Sparkles className="w-3.5 h-3.5 text-brand-peach-light" />
+            </p>
+          </div>
+        )}
+
         {/* Separator and copyright bottom row */}
         <div className="text-center">
           <p className="text-[10px] uppercase tracking-[0.3em] text-white/30">
@@ -1065,7 +1120,7 @@ function Footer() {
   );
 }
 
-export default function App() {
+function AppContent() {
   const [currentPage, setCurrentPage] = useState<'home' | 'cookies' | 'gdpr'>('home');
 
   useEffect(() => {
@@ -1091,6 +1146,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-bg-base text-text-dark font-sans selection:bg-brand-peach-light selection:text-brand-green-dark">
+      <ChristmasTopBanner />
       <Navbar />
       <main>
         {currentPage === "home" && (
@@ -1111,5 +1167,13 @@ export default function App() {
       <CookieConsent />
       <GiftCardPopup />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <ChristmasThemeProvider>
+      <AppContent />
+    </ChristmasThemeProvider>
   );
 }
