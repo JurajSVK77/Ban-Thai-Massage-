@@ -25,6 +25,8 @@ import { GdprPage } from "./pages/GdprPage";
 // @ts-ignore
 import mainBanner from "./assets/images/main_banner_1779859205162.png";
 // @ts-ignore
+import christmasBanner from "./assets/images/main_banner_christmas.png";
+// @ts-ignore
 import thajskaMasazImg from "./assets/images/Thajska_masaz.png";
 // @ts-ignore
 import olejovaMasazImg from "./assets/images/Olejova_masaz.png";
@@ -368,12 +370,19 @@ function Hero() {
             Zmeňte 'src' parameter na URL vašej nahranej grafiky. 
             Pre najlepší výsledok použite grafiku v pôvodnom pomere strán zobrazenú vyššie.
           */}
-          <img 
-            src={mainBanner} 
-            alt="Baan Thai Massage Banner"
-            referrerPolicy="no-referrer"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
-          />
+          <AnimatePresence mode="wait">
+            <motion.img 
+              key={isChristmas ? "christmas-banner" : "classic-banner"}
+              src={isChristmas ? christmasBanner : mainBanner} 
+              alt={isChristmas ? "Baan Thai Massage Vianočný Banner" : "Baan Thai Massage Banner"}
+              referrerPolicy="no-referrer"
+              initial={{ opacity: 0.85 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0.85 }}
+              transition={{ duration: 0.4 }}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2s] group-hover:scale-105"
+            />
+          </AnimatePresence>
           
           <div className="absolute inset-0 bg-black/10 pointer-events-none transition-opacity duration-1000 group-hover:bg-transparent"></div>
           
