@@ -33,6 +33,16 @@
       "desc": "V našom súkromnom štúdiu sa každému klientovi venujeme individuálne a bez zhonu. Počas masáže máte priestor na skutočný oddych, súkromie a starostlivosť prispôsobenú vašim potrebám."
     }
   },
+  "meetKay": {
+    "label": "Spoznajte Kay",
+    "title": "Dotyk thajskej tradície v srdci Galanty.",
+    "p1": "Volám sa Kay a pochádzam z Thajska, krajiny, kde je tradičná masáž súčasťou našej kultúry už po celé generácie.",
+    "p2": "V Baan Thai Massage vás rada privítam v pokojnom prostredí, kde si môžete oddýchnuť od každodenného zhonu a dopriať svojmu telu zaslúženú starostlivosť.",
+    "p3": "Ku každému zákazníkovi pristupujem osobne, s úctou a úsmevom.",
+    "signoff": "Teším sa na vašu návštevu. Kay",
+    "cta": "Rezervovať si masáž",
+    "imgAlt": "Kay – thajská masérka Baan Thai Massage Galanta"
+  },
   "services": {
     "label": "Naša Ponuka",
     "title": "Umenie relaxácie",

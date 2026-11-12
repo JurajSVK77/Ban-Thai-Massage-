@@ -11,7 +11,8 @@ import {
   Droplet,
   Heart,
   Facebook,
-  Sparkles
+  Sparkles,
+  Calendar
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
@@ -43,6 +44,8 @@ import olejRukaImg from "./assets/images/Olej_ruka.png";
 import kontajnerImg from "./assets/images/Kontajner.png";
 // @ts-ignore
 import santaHatImg from "./assets/images/santa_hat.png";
+// @ts-ignore
+import kayGreetingImg from "./assets/images/kay_greeting.png";
 
 const CONTACT = {
   phone: "+421 905 299 613",
@@ -497,6 +500,101 @@ function Benefits() {
               </div>
             </motion.div>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function MeetKay() {
+  const { t, i18n } = useTranslation();
+
+  return (
+    <section id="spoznajte-kay" className="py-24 md:py-32 bg-bg-base relative overflow-hidden">
+      {/* Subtle warm decorative ambient glows */}
+      <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[500px] h-[500px] bg-brand-peach-light/20 blur-[130px] rounded-full pointer-events-none -z-10" />
+      <div className="absolute top-10 left-[10%] w-[320px] h-[320px] bg-brand-green-light/15 blur-[100px] rounded-full pointer-events-none -z-10" />
+
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          {/* Left Column: Personal Story & Booking */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-7 flex flex-col justify-center order-1 lg:order-1"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <span className="w-8 h-[1px] bg-[#af8a54]"></span>
+              <span className="text-[11px] uppercase tracking-[0.3em] font-semibold text-[#af8a54]">
+                {t('meetKay.label')}
+              </span>
+            </div>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-serif text-brand-green-dark leading-[1.2] mb-6">
+              {t('meetKay.title')}
+            </h2>
+
+            <div className="space-y-4 text-text-muted font-light leading-relaxed text-base sm:text-lg mb-8">
+              <p>
+                {t('meetKay.p1')}
+              </p>
+              <p>
+                {t('meetKay.p2')}
+              </p>
+              <p>
+                {t('meetKay.p3')}
+              </p>
+            </div>
+
+            <div className="font-serif italic text-xl sm:text-2xl text-brand-green-dark mb-9">
+              {t('meetKay.signoff')}
+            </div>
+
+            <div>
+              <a
+                href={`https://services.bookio.com/baan-thai-massage-galanta/widget?lang=${i18n.language === 'en' ? 'en' : 'sk'}`}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'conversion', {
+                      'send_to': 'AW-18303717684/oYj_CNKC3MscELSi8pdE'
+                    });
+                  }
+                }}
+                className="group inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-green-dark hover:bg-brand-green text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all duration-300 shadow-lg shadow-brand-green-dark/20 hover:shadow-xl hover:shadow-brand-green/30 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+              >
+                <Calendar className="w-4 h-4 text-brand-peach-light" />
+                <span>{t('meetKay.cta')}</span>
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Right Column: Photo of Kay in Traditional Attire */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:col-span-5 flex items-center justify-center relative order-2 lg:order-2 pt-2 lg:pt-0"
+          >
+            {/* Seamless ambient background glow */}
+            <div className="absolute w-[280px] h-[280px] sm:w-[380px] sm:h-[380px] bg-gradient-to-tr from-brand-peach-light/40 via-[#af8a54]/15 to-transparent rounded-full blur-[80px] pointer-events-none -z-10" />
+
+            <img
+              src={kayGreetingImg}
+              alt={t('meetKay.imgAlt')}
+              loading="lazy"
+              className="w-full max-w-[320px] sm:max-w-[390px] lg:max-w-full h-auto object-contain select-none transition-transform duration-700 hover:scale-[1.01]"
+              style={{
+                filter: "drop-shadow(0 16px 28px rgba(56, 58, 49, 0.12))"
+              }}
+            />
+          </motion.div>
+
         </div>
       </div>
     </section>
@@ -1253,6 +1351,7 @@ function AppContent() {
           <>
             <Hero />
             <Benefits />
+            <MeetKay />
             <Services />
             <GiftCards />
             <Pricing />

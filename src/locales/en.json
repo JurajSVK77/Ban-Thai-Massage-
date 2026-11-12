@@ -33,6 +33,16 @@
       "desc": "In our private studio, we attend to each client individually and without rush. During the massage, you have space for real relaxation, privacy and care tailored to your needs."
     }
   },
+  "meetKay": {
+    "label": "Meet Kay",
+    "title": "A touch of Thai tradition in the heart of Galanta.",
+    "p1": "My name is Kay and I come from Thailand, a country where traditional massage and healing rituals have been an integral part of our culture for generations.",
+    "p2": "At Baan Thai Massage, I warmly welcome you to a peaceful sanctuary where you can pause from the daily rush and treat your body to well-deserved care.",
+    "p3": "I approach every single guest personally, with genuine respect and a warm smile.",
+    "signoff": "I look forward to your visit. Kay",
+    "cta": "Book a massage",
+    "imgAlt": "Kay – Thai masseuse at Baan Thai Massage Galanta"
+  },
   "services": {
     "label": "Our Offer",
     "title": "The Art of Relaxation",
