@@ -20,6 +20,9 @@ import { BaanLogo } from "./components/BaanLogo";
 import { CookieConsent } from "./components/CookieConsent";
 import { GiftCardPopup } from "./components/GiftCardPopup";
 import { ChristmasThemeProvider, ChristmasNavToggle, ChristmasTopBanner, useChristmasTheme, SantaHat } from "./components/ChristmasTheme";
+import { FaqSection } from "./components/FaqSection";
+import { MassageDetailPage } from "./pages/MassageDetailPage";
+import { MASSAGES_DATA } from "./data/massages";
 import { CookiesPage } from "./pages/CookiesPage";
 import { GdprPage } from "./pages/GdprPage";
 // @ts-ignore
@@ -49,33 +52,45 @@ const CONTACT = {
   facebook: "https://www.facebook.com/baanthaimassagegalanta/",
   email: "info@baanthaimassage.sk",
   address: "Hody 1679, Galanta",
-  mapsLink: "https://maps.app.goo.gl/we7AN2ndrdAphjtd7",
-  bankAccount: {
-    iban: "SK09 8360 5207 0042 0988 6242",
-    bankDetails: "mBank S.A., pobočka zahraničnej banky"
-  }
+  mapsLink: "https://maps.app.goo.gl/we7AN2ndrdAphjtd7"
 };
 
 const SERVICES = [
   {
+    slug: "tradicna-thajska-masaz",
     title: "Tradičná thajská masáž",
     description: "Autentická terapia kombinujúca akupresúru, strečing a prácu s energetickými dráhami tela. Účinne odstraňuje svalové napätie a blokády.",
     image: thajskaMasazImg
   },
   {
+    slug: "thajska-olejova-masaz",
     title: "Thajská olejová masáž",
     description: "Relaxačná procedúra s využitím prírodných aromatických olejov. Ideálna na uvoľnenie po stresujúcom dni a na harmonizáciu mysle.",
     image: olejovaMasazImg
   },
   {
+    slug: "mix-thajska-olejova-masaz",
+    title: "Mix Thajská olejová masáž",
+    description: "Zlatá stredná cesta – spojenie hĺbkovej suchej akupresúry a uvoľňujúceho teplého oleja pre maximálnu úľavu a relax.",
+    image: olejRukaImg
+  },
+  {
+    slug: "reflexna-masaz-chodidiel",
     title: "Reflexná masáž chodidiel",
     description: "Stimulácia akupresúrnych bodov na chodidlách, ktorá prináša úľavu nielen nohám, ale priaznivo pôsobí na celé telo.",
     image: masazNohImg
   },
   {
+    slug: "masaz-chrbta-a-ramien",
     title: "Masáž chrbta a šije",
     description: "Zameraná na najviac preťažované partie tela. Výborne pomáha pri bolestiach z dlhého sedenia a pri stuhnutom krku.",
     image: masazChrbtaImg
+  },
+  {
+    slug: "masaz-s-horucim-kokosovym-olejom",
+    title: "Masáž s horúcim kokosovým olejom",
+    description: "Exotická hrejivá terapia s čistým bio kokosovým olejom, ktorá vyživuje suchú pokožku a prehrieva stuhnuté svaly.",
+    image: olejovaMasazImg
   }
 ];
 
@@ -134,6 +149,15 @@ const PRICING_DATA = [
     prices: { "30": null, "60": 45, "90": 62, "120": 80 }
   }
 ];
+
+const PRICING_SLUGS: Record<string, string> = {
+  "Relaxačná olejová masáž": "thajska-olejova-masaz",
+  "Mix Thajská olejová masáž": "mix-thajska-olejova-masaz",
+  "Tradičná thajská masáž": "tradicna-thajska-masaz",
+  "Thajská masáž nôh": "reflexna-masaz-chodidiel",
+  "Masáž chrbta a ramien": "masaz-chrbta-a-ramien",
+  "Masáž s horúcim kokosovým olejom": "masaz-s-horucim-kokosovym-olejom"
+};
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -220,6 +244,7 @@ function Navbar() {
               <a href="#sluzby" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.services')}</a>
               <a href="#gift-cards" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.giftCards')}</a>
               <a href="#cennik" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.pricing')}</a>
+              <a href="#faq" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.faq')}</a>
               <a href="#o-nas" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.about')}</a>
               <a href="#kontakt" className="text-xs tracking-[0.15em] uppercase font-medium text-text-muted hover:text-brand-green-dark transition-colors">{t('nav.contact')}</a>
               
@@ -275,6 +300,7 @@ function Navbar() {
             <a href="#sluzby" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.services')}</a>
             <a href="#gift-cards" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.giftCards')}</a>
             <a href="#cennik" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.pricing')}</a>
+            <a href="#faq" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.faq')}</a>
             <a href="#o-nas" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.about')}</a>
             <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.contact')}</a>
             
@@ -522,16 +548,18 @@ function Services() {
                 }}
                 className="overflow-hidden rounded-[2.5rem] rounded-tr-[6rem] rounded-bl-[5rem] mb-8 relative aspect-[4/3] bg-bg-alt shadow-lg shadow-brand-green-dark/5"
               >
-                <div className="absolute inset-0 bg-brand-green-dark/10 group-hover:bg-transparent transition-colors z-10 duration-700"></div>
-                <motion.img 
-                  variants={{
-                    hidden: { scale: 1.2 },
-                    visible: { scale: 1, transition: { duration: 1.2, ease: "easeOut" } }
-                  }}
-                  src={service.image} 
-                  alt={service.title}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
+                <a href={`#masaz-${service.slug}`} className="block w-full h-full">
+                  <div className="absolute inset-0 bg-brand-green-dark/10 group-hover:bg-transparent transition-colors z-10 duration-700"></div>
+                  <motion.img 
+                    variants={{
+                      hidden: { scale: 1.2 },
+                      visible: { scale: 1, transition: { duration: 1.2, ease: "easeOut" } }
+                    }}
+                    src={service.image} 
+                    alt={service.title}
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                </a>
               </motion.div>
               <div className="px-4">
                 <motion.div 
@@ -551,25 +579,39 @@ function Services() {
                   }}
                   className="text-3xl font-serif text-text-dark mb-4"
                 >
-                  {t(`services.s${i + 1}.title`)}
+                  <a href={`#masaz-${service.slug}`} className="hover:text-brand-green-dark transition-colors">
+                    {service.title}
+                  </a>
                 </motion.h3>
                 <motion.p 
                   variants={{
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
                   }}
-                  className="text-text-muted font-light leading-relaxed mb-8"
+                  className="text-text-muted font-light leading-relaxed mb-6"
                 >
-                  {t(`services.s${i + 1}.desc`)}
+                  {service.description}
                 </motion.p>
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, y: 10 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
                   }}
+                  className="flex flex-wrap items-center gap-4"
                 >
-                  <a href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] font-bold text-brand-green-dark hover:text-brand-peach-dark transition-colors border-b border-transparent hover:border-brand-peach-dark pb-1">
-                    {t('services.bookLabel')} <ArrowRight className="w-3 h-3 ml-2" />
+                  <a 
+                    href={`#masaz-${service.slug}`} 
+                    className="inline-flex items-center text-xs uppercase tracking-[0.15em] font-bold text-brand-green-dark hover:text-brand-peach-dark transition-colors border-b border-brand-green-dark/30 hover:border-brand-peach-dark pb-1"
+                  >
+                    Viac o procedúre & účinky <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                  </a>
+                  <a
+                    href="https://services.bookio.com/baan-thai-massage-b8k3x1s8/widget?lang=sk"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center text-[10px] uppercase tracking-wider font-semibold px-3.5 py-1.5 rounded-full bg-brand-green-dark/10 hover:bg-brand-green-dark hover:text-white transition-all text-brand-green-dark"
+                  >
+                    Rezervovať
                   </a>
                 </motion.div>
               </div>
@@ -760,20 +802,31 @@ function Pricing() {
                   >
                     <div className="flex-1 min-w-0 pr-0 sm:pr-4">
                       <div className="flex items-center gap-2.5 flex-wrap">
-                        <h3 className="text-xl md:text-2xl font-serif text-text-dark group-hover:text-brand-green-dark transition-colors">
+                        <a 
+                          href={`#masaz-${PRICING_SLUGS[item.name] || 'tradicna-thajska-masaz'}`}
+                          className="text-xl md:text-2xl font-serif text-text-dark group-hover:text-brand-green-dark transition-colors hover:underline"
+                        >
                           {t(`pricing.p${pKey}.name`)}
-                        </h3>
+                        </a>
                         {item.prices["90"] && selectedDuration === "all" && (
                           <span className="inline-block px-2.5 py-0.5 rounded-full text-[9px] uppercase tracking-widest bg-brand-peach-light/40 border border-brand-peach-dark/25 text-brand-peach-dark font-semibold whitespace-nowrap shadow-xs">
                             {i18n.language === 'en' ? `90 min only €${item.prices["90"]}` : `90 min len ${item.prices["90"]}€`}
                           </span>
                         )}
                       </div>
-                      {item.note && (
-                        <p className="text-xs text-text-muted mt-1.5 font-light italic uppercase tracking-wider">
-                          ({t(`pricing.p${pKey}.note`)})
-                        </p>
-                      )}
+                      <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+                        {item.note && (
+                          <p className="text-xs text-text-muted font-light italic uppercase tracking-wider">
+                            ({t(`pricing.p${pKey}.note`)})
+                          </p>
+                        )}
+                        <a 
+                          href={`#masaz-${PRICING_SLUGS[item.name] || 'tradicna-thajska-masaz'}`}
+                          className="text-[11px] text-[#af8a54] hover:text-brand-green-dark font-medium transition-colors inline-flex items-center gap-1"
+                        >
+                          Detail & účinky →
+                        </a>
+                      </div>
                     </div>
 
                     <div className={`${selectedDuration === "all" ? 'grid grid-cols-4 gap-2 w-full' : 'flex justify-end gap-2 w-full'} sm:w-auto sm:flex sm:items-center sm:gap-3 shrink-0`}>
@@ -951,6 +1004,7 @@ function About() {
 
 function Contact() {
   const { t } = useTranslation();
+
   return (
     <section id="kontakt" className="py-24 bg-brand-green-dark relative overflow-hidden">
       {/* Decorative floral/leaf design on background */}
@@ -1003,18 +1057,6 @@ function Contact() {
                          <span className="text-white/80 font-light">{t('contact.days2')}</span>
                          <span className="text-white font-serif">{HOURS[1].time}</span>
                       </div>
-                </div>
-             </div>
-
-             <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-brand-green-light mb-3">{t('contact.accountLabel')}</p>
-                <div className="flex flex-col gap-1">
-                  <div className="text-xl text-white/90 font-mono font-light tracking-wide hover:text-brand-peach-light transition-colors cursor-all-scroll select-all">
-                    IBAN: {CONTACT.bankAccount.iban}
-                  </div>
-                  <div className="text-sm text-white/70 font-light hover:text-brand-peach-light transition-colors">
-                    Banka: {CONTACT.bankAccount.bankDetails}
-                  </div>
                 </div>
              </div>
           </div>
@@ -1087,6 +1129,7 @@ function Footer() {
              <a href="#sluzby" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.services')}</a>
              <a href="#gift-cards" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.giftCards')}</a>
              <a href="#cennik" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.pricing')}</a>
+             <a href="#faq" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.faq')}</a>
              <a href="#o-nas" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('nav.about')}</a>
              <a href="#gdpr" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('footer.privacy')}</a>
              <a href="#cookies" className="text-[10px] uppercase tracking-[0.2em] hover:text-brand-peach-light transition-colors">{t('footer.cookies')}</a>
@@ -1130,28 +1173,64 @@ function Footer() {
 }
 
 function AppContent() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'cookies' | 'gdpr'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'cookies' | 'gdpr' | 'massage'>('home');
+  const [activeMassageSlug, setActiveMassageSlug] = useState<string>('tradicna-thajska-masaz');
 
   useEffect(() => {
-    const handleHashChange = () => {
+    const handleNavigation = () => {
       const hash = window.location.hash;
+      const pathname = window.location.pathname;
+
       if (hash === "#cookies") {
         setCurrentPage("cookies");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else if (hash === "#gdpr") {
         setCurrentPage("gdpr");
         window.scrollTo({ top: 0, behavior: "smooth" });
+      } else if (hash.startsWith("#masaz-")) {
+        const slug = hash.replace("#masaz-", "");
+        const matched = MASSAGES_DATA.find((m) => m.slug === slug || m.hash === hash);
+        if (matched) {
+          setActiveMassageSlug(matched.slug);
+          setCurrentPage("massage");
+        } else {
+          setCurrentPage("home");
+        }
+      } else if (pathname.startsWith("/masaze/")) {
+        const slug = pathname.replace("/masaze/", "").replace(/\/$/, "");
+        const matched = MASSAGES_DATA.find((m) => m.slug === slug);
+        if (matched) {
+          setActiveMassageSlug(matched.slug);
+          setCurrentPage("massage");
+        } else {
+          setCurrentPage("home");
+        }
       } else {
         setCurrentPage("home");
+        if (hash) {
+          // Allow in-page anchor navigation (like #faq, #sluzby, #cennik)
+          setTimeout(() => {
+            const el = document.querySelector(hash);
+            if (el) {
+              el.scrollIntoView({ behavior: "smooth" });
+            }
+          }, 100);
+        }
       }
     };
 
     // Run once on initial load to handle direct deep links
-    handleHashChange();
+    handleNavigation();
 
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
+    window.addEventListener("hashchange", handleNavigation);
+    window.addEventListener("popstate", handleNavigation);
+    return () => {
+      window.removeEventListener("hashchange", handleNavigation);
+      window.removeEventListener("popstate", handleNavigation);
+    };
   }, []);
+
+  const activeMassage = MASSAGES_DATA.find((m) => m.slug === activeMassageSlug) || MASSAGES_DATA[0];
 
   return (
     <div className="min-h-screen bg-bg-base text-text-dark font-sans selection:bg-brand-peach-light selection:text-brand-green-dark">
@@ -1165,12 +1244,25 @@ function AppContent() {
             <Services />
             <GiftCards />
             <Pricing />
+            <FaqSection />
             <About />
             <Contact />
           </>
         )}
         {currentPage === "cookies" && <CookiesPage />}
         {currentPage === "gdpr" && <GdprPage />}
+        {currentPage === "massage" && (
+          <MassageDetailPage
+            massage={activeMassage}
+            onBack={() => {
+              window.location.hash = "#sluzby";
+              setCurrentPage("home");
+            }}
+            onSelectOtherMassage={(slug) => {
+              window.location.hash = `#masaz-${slug}`;
+            }}
+          />
+        )}
       </main>
       <Footer />
       <CookieConsent />

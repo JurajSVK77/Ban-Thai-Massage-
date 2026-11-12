@@ -1,4 +1,28 @@
+# robots.txt pre baanthaimassage.sk
 User-agent: *
 Allow: /
 
+# Vyhľadávacie a asistenčné AI modely (ChatGPT, Perplexity, Claude, Google Gemini / AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Odkaz na sitemapu
 Sitemap: https://baanthaimassage.sk/sitemap.xml
