@@ -606,10 +606,17 @@ function Services() {
                     Viac o procedúre & účinky <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                   </a>
                   <a
-                    href="https://services.bookio.com/baan-thai-massage-b8k3x1s8/widget?lang=sk"
+                    href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center text-[10px] uppercase tracking-wider font-semibold px-3.5 py-1.5 rounded-full bg-brand-green-dark/10 hover:bg-brand-green-dark hover:text-white transition-all text-brand-green-dark"
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && (window as any).gtag) {
+                        (window as any).gtag('event', 'conversion', {
+                          'send_to': 'AW-18303717684/oYj_CNKC3MscELSi8pdE'
+                        });
+                      }
+                    }}
+                    className="inline-flex items-center text-[10px] uppercase tracking-wider font-semibold px-3.5 py-1.5 rounded-full bg-brand-green-dark/10 hover:bg-brand-green-dark hover:text-white transition-all text-brand-green-dark cursor-pointer"
                   >
                     Rezervovať
                   </a>

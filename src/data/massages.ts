@@ -176,7 +176,7 @@ export const MASSAGES_DATA: MassageDetail[] = [
     ],
     howItWorks: [
       "Masáž začína uvoľnením a prehriatím chodidiel a lýtok pomocou prírodného krému.",
-      "Pomocou dreveného kolíka masérka cielene stimuluje reflexné body a uvoľňuje energetické blokády.",
+      "Masérka precíznou akupresúrou cielene stimuluje reflexné body chodidiel a uvoľňuje energetické blokády.",
       "Masáž končí uvoľnením lýtkových svalov a jemným premasírovaním ramien a šije."
     ],
     preparation: "Príďte 5 minút pred termínom, aby ste sa v pokoji pripravili. V štúdiu máte k dispozícii všetko potrebné zázemie. Šperky a hodinky si môžete bezpečne odložiť priamo v štúdiu.",

@@ -195,21 +195,26 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <a
-                href="https://services.bookio.com/baan-thai-massage-b8k3x1s8/widget?lang=sk"
+                href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-brand-green-dark hover:bg-brand-green text-white font-medium tracking-wide shadow-lg shadow-brand-green-dark/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-sm sm:text-base text-center"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'conversion', {
+                      'send_to': 'AW-18303717684/oYj_CNKC3MscELSi8pdE'
+                    });
+                  }
+                }}
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-brand-green-dark hover:bg-brand-green text-white font-medium tracking-wide shadow-lg shadow-brand-green-dark/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-sm sm:text-base text-center cursor-pointer"
               >
                 <Calendar className="w-4 h-4" />
                 Rezervovať termín online
               </a>
               <a
-                href="#darcekove-poukazky"
-                onClick={() => {
-                  window.location.hash = "#darcekove-poukazky";
-                  onBack();
-                }}
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-brand-peach-light/40 hover:bg-brand-peach-light/60 text-brand-green-dark border border-brand-peach-dark/30 font-medium tracking-wide transition-all text-sm text-center"
+                href="https://services.bookio.com/baan-thai-massage-galanta/gift-cards"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-brand-peach-light/40 hover:bg-brand-peach-light/60 text-brand-green-dark border border-brand-peach-dark/30 font-medium tracking-wide transition-all text-sm text-center cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Gift className="w-4 h-4 text-brand-peach-dark" />
                 Kúpiť darčekový poukaz
@@ -348,10 +353,17 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
 
             <div className="space-y-3">
               <a
-                href="https://services.bookio.com/baan-thai-massage-b8k3x1s8/widget?lang=sk"
+                href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-full bg-[#af8a54] hover:bg-[#977340] text-white text-sm font-semibold tracking-wide transition-all shadow-md text-center"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'conversion', {
+                      'send_to': 'AW-18303717684/oYj_CNKC3MscELSi8pdE'
+                    });
+                  }
+                }}
+                className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-full bg-[#af8a54] hover:bg-[#977340] text-white text-sm font-semibold tracking-wide transition-all shadow-md text-center cursor-pointer"
               >
                 Rezervovať cez Bookio
               </a>

@@ -196,10 +196,17 @@ export function FaqSection() {
           </p>
         </div>
         <a
-          href="https://services.bookio.com/baan-thai-massage-b8k3x1s8/widget?lang=sk"
+          href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-green-dark hover:bg-brand-green text-white text-xs sm:text-sm font-medium tracking-wide transition-all shadow-md shrink-0"
+          onClick={() => {
+            if (typeof window !== 'undefined' && (window as any).gtag) {
+              (window as any).gtag('event', 'conversion', {
+                'send_to': 'AW-18303717684/oYj_CNKC3MscELSi8pdE'
+              });
+            }
+          }}
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-brand-green-dark hover:bg-brand-green text-white text-xs sm:text-sm font-medium tracking-wide transition-all shadow-md shrink-0 cursor-pointer"
         >
           {isEn ? "Book an appointment online" : "Rezervovať termín online"}
         </a>
