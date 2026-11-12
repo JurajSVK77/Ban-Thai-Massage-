@@ -254,29 +254,34 @@ function Navbar() {
                 {i18n.language === 'en' ? 'SK' : 'EN'}
               </button>
               
-              <motion.a 
-                href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-                whileHover={{ y: -2, scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="group relative inline-flex items-center justify-center px-8 py-3 bg-brand-green-dark text-white text-[10px] uppercase tracking-[0.2em] font-bold rounded-full overflow-hidden transition-all hover:shadow-xl hover:shadow-brand-green-dark/20"
+              <a 
+                href="tel:+421905299613"
+                className="group relative inline-flex items-center justify-center px-8 py-3 bg-brand-green-dark text-white text-[10px] uppercase tracking-[0.2em] font-bold rounded-full overflow-hidden transition-all duration-300 hover:shadow-xl hover:shadow-brand-green-dark/20 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <div className="absolute inset-0 w-0 bg-brand-green transition-all duration-500 ease-out group-hover:w-full"></div>
                 <span className="relative flex items-center">
                   <Phone className="w-3 h-3 mr-2" />
                   {t('nav.call')}
                 </span>
-              </motion.a>
+              </a>
             </div>
 
-            <div className="flex items-center md:hidden gap-3">
+            <div className="flex items-center md:hidden gap-2.5 sm:gap-3">
               <ChristmasNavToggle />
               <button onClick={toggleLanguage} className="text-xs tracking-[0.1em] uppercase font-bold text-brand-green-dark cursor-pointer z-50">
                 {i18n.language === 'en' ? 'SK' : 'EN'}
               </button>
+              <a 
+                href="tel:+421905299613"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-brand-green-dark text-white text-[10px] uppercase tracking-wider font-bold rounded-full shadow-sm z-50 active:scale-95 cursor-pointer"
+              >
+                <Phone className="w-3 h-3" />
+                <span>{t('nav.call')}</span>
+              </a>
               <button 
                 onClick={() => setIsOpen(!isOpen)}
                 className="relative z-50 text-brand-green-dark p-2"
+                aria-label="Menu"
               >
                 <div className="relative w-6 h-5">
                   <span className={`absolute h-0.5 bg-current w-full transform transition-all duration-300 ${isOpen ? 'rotate-45 top-2' : 'top-0'}`} />
@@ -295,7 +300,7 @@ function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-bg-base/95 backdrop-blur-xl flex flex-col justify-center items-center space-y-8"
+            className="fixed inset-0 z-40 bg-bg-base/95 backdrop-blur-xl flex flex-col justify-center items-center space-y-7"
           >
             <a href="#sluzby" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.services')}</a>
             <a href="#gift-cards" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.giftCards')}</a>
@@ -304,6 +309,15 @@ function Navbar() {
             <a href="#o-nas" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.about')}</a>
             <a href="#kontakt" onClick={() => setIsOpen(false)} className="text-2xl font-serif text-brand-green-dark hover:text-brand-peach-dark transition-colors">{t('nav.contact')}</a>
             
+            <a 
+              href="tel:+421905299613"
+              onClick={() => setIsOpen(false)}
+              className="mt-4 px-8 py-3.5 bg-brand-green-dark text-white text-xs uppercase tracking-[0.2em] font-bold rounded-full flex items-center gap-2 shadow-lg shadow-brand-green-dark/20 hover:bg-brand-green transition-all active:scale-95 cursor-pointer"
+            >
+              <Phone className="w-4 h-4" />
+              {t('nav.call')}
+            </a>
+
             <motion.a 
               href={CONTACT.facebook}
               target="_blank"
@@ -311,7 +325,7 @@ function Navbar() {
               whileHover={{ y: -4, scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 15 }}
-              className="mt-8 px-8 py-4 bg-brand-peach-dark text-white text-xs uppercase tracking-widest font-bold rounded-full shadow-lg shadow-brand-peach-dark/20 text-center flex items-center justify-center gap-2"
+              className="px-8 py-3 bg-brand-peach-dark text-white text-xs uppercase tracking-widest font-bold rounded-full shadow-lg shadow-brand-peach-dark/20 text-center flex items-center justify-center gap-2"
             >
               <Facebook className="w-4 h-4" />
               {t('nav.followUs')}
@@ -446,16 +460,13 @@ function Hero() {
           
           <BookioButton className="w-full sm:w-auto mt-2 sm:mt-0" />
           
-          <motion.a 
-            href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`}
-            whileHover={{ y: -4, scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ type: "spring", stiffness: 400, damping: 15 }}
-            className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 border border-brand-green text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-brand-green hover:text-white shadow-sm cursor-pointer"
+          <a 
+            href="tel:+421905299613"
+            className="w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 border border-brand-green text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all duration-300 hover:bg-brand-green hover:text-white shadow-sm hover:-translate-y-0.5 active:scale-95 cursor-pointer"
           >
             <Phone className="w-4 h-4" />
             {t('hero.book')}
-          </motion.a>
+          </a>
         </motion.div>
       </div>
     </section>
@@ -493,7 +504,7 @@ function Benefits() {
 }
 
 function Services() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <section id="sluzby" className="py-32 bg-bg-base relative">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
@@ -556,7 +567,7 @@ function Services() {
                       visible: { scale: 1, transition: { duration: 1.2, ease: "easeOut" } }
                     }}
                     src={service.image} 
-                    alt={service.title}
+                    alt={t(`services.s${i + 1}.title`, service.title)}
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                 </a>
@@ -580,7 +591,7 @@ function Services() {
                   className="text-3xl font-serif text-text-dark mb-4"
                 >
                   <a href={`#masaz-${service.slug}`} className="hover:text-brand-green-dark transition-colors">
-                    {service.title}
+                    {t(`services.s${i + 1}.title`, service.title)}
                   </a>
                 </motion.h3>
                 <motion.p 
@@ -590,7 +601,7 @@ function Services() {
                   }}
                   className="text-text-muted font-light leading-relaxed mb-6"
                 >
-                  {service.description}
+                  {t(`services.s${i + 1}.desc`, service.description)}
                 </motion.p>
                 <motion.div
                   variants={{
@@ -603,10 +614,10 @@ function Services() {
                     href={`#masaz-${service.slug}`} 
                     className="inline-flex items-center text-xs uppercase tracking-[0.15em] font-bold text-brand-green-dark hover:text-brand-peach-dark transition-colors border-b border-brand-green-dark/30 hover:border-brand-peach-dark pb-1"
                   >
-                    Viac o procedúre & účinky <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+                    {t('services.learnMore', 'Viac o procedúre & účinky')} <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                   </a>
                   <a
-                    href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
+                    href={`https://services.bookio.com/baan-thai-massage-galanta/widget?lang=${i18n.language === 'en' ? 'en' : 'sk'}`}
                     target="_blank"
                     rel="noreferrer"
                     onClick={() => {
@@ -618,7 +629,7 @@ function Services() {
                     }}
                     className="inline-flex items-center text-[10px] uppercase tracking-wider font-semibold px-3.5 py-1.5 rounded-full bg-brand-green-dark/10 hover:bg-brand-green-dark hover:text-white transition-all text-brand-green-dark cursor-pointer"
                   >
-                    Rezervovať
+                    {t('services.bookOnline', 'Rezervovať')}
                   </a>
                 </motion.div>
               </div>
@@ -831,7 +842,7 @@ function Pricing() {
                           href={`#masaz-${PRICING_SLUGS[item.name] || 'tradicna-thajska-masaz'}`}
                           className="text-[11px] text-[#af8a54] hover:text-brand-green-dark font-medium transition-colors inline-flex items-center gap-1"
                         >
-                          Detail & účinky →
+                          {t('pricing.detailLink', 'Detail & účinky →')}
                         </a>
                       </div>
                     </div>
@@ -912,26 +923,20 @@ function Pricing() {
               {t('pricing.bookingInfo')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-md">
-              <motion.a 
-                href={`tel:${CONTACT.phone.replace(/\s+/g, '')}`} 
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-green-dark text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all shadow-lg hover:shadow-brand-green/35 hover:bg-brand-green cursor-pointer"
+              <a 
+                href="tel:+421905299613" 
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-brand-green-dark text-white text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-brand-green/35 hover:bg-brand-green hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <Phone className="w-3.5 h-3.5" />
                 {CONTACT.formattedPhone}
-              </motion.a>
-              <motion.a 
-                href={`tel:${CONTACT.phone2.replace(/\s+/g, '')}`} 
-                whileHover={{ y: -4, scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 400, damping: 15 }}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-brand-green text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-colors hover:bg-brand-green hover:text-white shadow-sm cursor-pointer"
+              </a>
+              <a 
+                href="tel:+421918854630" 
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-white border border-brand-green text-brand-green-dark text-[11px] uppercase tracking-[0.2em] font-bold rounded-full transition-all duration-300 hover:bg-brand-green hover:text-white shadow-sm hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <Phone className="w-3.5 h-3.5" />
                 {CONTACT.formattedPhone2}
-              </motion.a>
+              </a>
             </div>
           </div>
 

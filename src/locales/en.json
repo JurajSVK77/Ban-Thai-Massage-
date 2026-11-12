@@ -35,28 +35,39 @@
   },
   "services": {
     "label": "Our Offer",
-    "title": "The art of relaxation",
+    "title": "The Art of Relaxation",
+    "learnMore": "Learn more & benefits",
+    "bookOnline": "Book online",
     "s1": {
-      "title": "Traditional Thai massage",
-      "desc": "An authentic therapy combining acupressure, stretching and working with the body's energy pathways. Effectively removes muscle tension and blockages."
+      "title": "Traditional Thai Massage",
+      "desc": "Authentic ancient therapy combining rhythmic acupressure, gentle stretching, and energy line balancing. Effectively relieves deep muscle tension."
     },
     "s2": {
-      "title": "Thai oil massage",
-      "desc": "A relaxing procedure using natural aromatic oils. Ideal for unwinding after a stressful day and harmonizing the mind."
+      "title": "Thai Relaxing Oil Massage",
+      "desc": "Soothing whole-body therapy using warm natural oils. Perfect for unwinding after a stressful day and harmonizing both body and mind."
     },
     "s3": {
-      "title": "Foot reflexology",
-      "desc": "Stimulation of acupressure points on the feet, which brings relief not only to the legs, but also has a positive effect on the whole body."
+      "title": "Combined Thai & Oil Massage",
+      "desc": "The best of both worlds – dry acupressure knot release seamlessly followed by warm aromatherapy oil for maximum relaxation."
     },
     "s4": {
-      "title": "Back and neck massage",
-      "desc": "Focused on the most overloaded parts of the body. Extremely helpful with pain from prolonged sitting and a stiff neck."
+      "title": "Thai Foot Reflexology",
+      "desc": "Precise stimulation of reflexology points on feet and calves, bringing instant lightness to tired legs and revitalizing the entire body."
+    },
+    "s5": {
+      "title": "Targeted Back, Neck & Shoulder Massage",
+      "desc": "Focused deep-tissue relief for the most strained upper-body areas. Ideal for desk workers, neck stiffness, and tension headaches."
+    },
+    "s6": {
+      "title": "Warm Bio Coconut Oil Massage",
+      "desc": "Exotic warming ritual with pure virgin coconut oil that deeply nourishes dry skin, improves elasticity, and relaxes tired muscles."
     },
     "bookLabel": "Book procedure"
   },
   "pricing": {
     "label": "Pricing",
     "title": "Our offer & Prices",
+    "detailLink": "Details & benefits →",
     "desc1": "Indulge in deep relaxation with our traditional therapies. All our",
     "desc2": "90-minute massages",
     "desc3": "are now available for an exceptional price from",

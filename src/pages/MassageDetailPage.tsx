@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { motion } from "motion/react";
-import { ArrowLeft, Clock, Sparkles, CheckCircle2, AlertCircle, ShieldCheck, MapPin, Phone, Gift, Calendar } from "lucide-react";
-import { MassageDetail, MASSAGES_DATA } from "../data/massages";
+import { useTranslation } from "react-i18next";
+import { ArrowLeft, Clock, Sparkles, CheckCircle2, AlertCircle, MapPin, Phone, Gift, Calendar } from "lucide-react";
+import { MassageDetail, MASSAGES_DATA, getLocalizedMassage } from "../data/massages";
 
 interface MassageDetailPageProps {
   massage: MassageDetail;
@@ -10,15 +10,19 @@ interface MassageDetailPageProps {
 }
 
 export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: MassageDetailPageProps) {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+  const m = getLocalizedMassage(massage, i18n.language);
+
   useEffect(() => {
     // Dynamické nastavenie SEO titulku a popisu
     const prevTitle = document.title;
-    document.title = massage.metaTitle;
+    document.title = m.metaTitle;
 
     const metaDesc = document.querySelector('meta[name="description"]');
     const prevDesc = metaDesc ? metaDesc.getAttribute("content") : "";
     if (metaDesc) {
-      metaDesc.setAttribute("content", massage.metaDescription);
+      metaDesc.setAttribute("content", m.metaDescription);
     }
 
     // Scroll na začiatok stránky
@@ -43,29 +47,29 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
             {
               "@type": "ListItem",
               "position": 1,
-              "name": "Domov",
+              "name": isEn ? "Home" : "Domov",
               "item": "https://baanthaimassage.sk/"
             },
             {
               "@type": "ListItem",
               "position": 2,
-              "name": "Masáže Galanta",
+              "name": isEn ? "Massages Galanta" : "Masáže Galanta",
               "item": "https://baanthaimassage.sk/#sluzby"
             },
             {
               "@type": "ListItem",
               "position": 3,
-              "name": massage.title,
-              "item": `https://baanthaimassage.sk/${massage.hash}`
+              "name": m.title,
+              "item": `https://baanthaimassage.sk/${m.hash}`
             }
           ]
         },
         {
           "@type": "Service",
           "serviceType": "Thai Massage",
-          "name": `${massage.title} Galanta`,
-          "alternateName": massage.thaiName,
-          "description": massage.metaDescription,
+          "name": `${m.title} Galanta`,
+          "alternateName": m.thaiName,
+          "description": m.metaDescription,
           "provider": {
             "@type": "HealthAndBeautyBusiness",
             "name": "Baan Thai Massage Galanta",
@@ -83,11 +87,11 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
             "@type": "City",
             "name": "Galanta"
           },
-          "offers": massage.durationOptions.map((opt) => ({
+          "offers": m.durationOptions.map((opt) => ({
             "@type": "Offer",
             "price": opt.price.toString(),
             "priceCurrency": "EUR",
-            "name": `${massage.title} - ${opt.duration}`,
+            "name": `${m.title} - ${opt.duration}`,
             "availability": "https://schema.org/InStock"
           }))
         }
@@ -106,9 +110,10 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
         existing.remove();
       }
     };
-  }, [massage]);
+  }, [m, isEn]);
 
-  const otherMassages = MASSAGES_DATA.filter((m) => m.slug !== massage.slug).slice(0, 3);
+  const otherMassages = MASSAGES_DATA.filter((item) => item.slug !== m.slug).slice(0, 3);
+  const bookioUrl = `https://services.bookio.com/baan-thai-massage-galanta/widget?lang=${isEn ? "en" : "sk"}`;
 
   return (
     <article className="pt-28 pb-20 px-4 sm:px-6 md:px-12 max-w-6xl mx-auto font-sans">
@@ -118,7 +123,7 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           onClick={onBack}
           className="hover:text-brand-green-dark transition-colors flex items-center gap-1 font-medium"
         >
-          <ArrowLeft className="w-3.5 h-3.5" /> Domov
+          <ArrowLeft className="w-3.5 h-3.5" /> {isEn ? "Home" : "Domov"}
         </button>
         <span>/</span>
         <button 
@@ -128,10 +133,10 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           }}
           className="hover:text-brand-green-dark transition-colors font-medium"
         >
-          Masáže & Cenník
+          {isEn ? "Services & Pricing" : "Masáže & Cenník"}
         </button>
         <span>/</span>
-        <span className="text-brand-green-dark font-semibold truncate">{massage.title}</span>
+        <span className="text-brand-green-dark font-semibold truncate">{m.title}</span>
       </nav>
 
       {/* Main Header Card */}
@@ -140,33 +145,33 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           {/* Left Column: Text Info */}
           <div className="lg:col-span-7 space-y-6">
             <div className="flex flex-wrap items-center gap-2.5">
-              {massage.badge && (
+              {m.badge && (
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold tracking-wide bg-brand-green-light/20 text-brand-green-dark">
-                  <Sparkles className="w-3.5 h-3.5" /> {massage.badge}
+                  <Sparkles className="w-3.5 h-3.5" /> {m.badge}
                 </span>
               )}
-              {massage.thaiName && (
+              {m.thaiName && (
                 <span className="px-3 py-1 rounded-full text-xs font-serif italic text-brand-peach-dark bg-brand-peach-light/30 border border-brand-peach-dark/20">
-                  {massage.thaiName}
+                  {m.thaiName}
                 </span>
               )}
             </div>
 
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-serif font-light text-brand-green-dark leading-tight">
-              {massage.title}
+              {m.title}
             </h1>
 
             <p className="text-base sm:text-lg text-text-muted font-light leading-relaxed">
-              {massage.shortDesc}
+              {m.shortDesc}
             </p>
 
             {/* Price list grid for this massage */}
             <div className="pt-2 pb-4">
               <p className="text-xs uppercase tracking-widest text-brand-green-dark/70 font-semibold mb-3">
-                Dostupné dĺžky procedúry & ceny:
+                {isEn ? "Available durations & prices:" : "Dostupné dĺžky procedúry & ceny:"}
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {massage.durationOptions.map((opt, idx) => (
+                {m.durationOptions.map((opt, idx) => (
                   <div 
                     key={idx}
                     className={`rounded-2xl p-4 border transition-all ${
@@ -177,7 +182,7 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
                   >
                     {opt.discountNote && (
                       <span className="absolute top-1.5 right-2 text-[9px] uppercase tracking-wider font-bold bg-[#af8a54] text-white px-2 py-0.5 rounded-full">
-                        Akcia
+                        {isEn ? "Special" : "Akcia"}
                       </span>
                     )}
                     <div className="flex items-center gap-1.5 text-xs opacity-90 mb-1">
@@ -195,7 +200,7 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
               <a
-                href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
+                href={bookioUrl}
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => {
@@ -208,7 +213,7 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-brand-green-dark hover:bg-brand-green text-white font-medium tracking-wide shadow-lg shadow-brand-green-dark/20 hover:scale-[1.02] active:scale-[0.98] transition-all text-sm sm:text-base text-center cursor-pointer"
               >
                 <Calendar className="w-4 h-4" />
-                Rezervovať termín online
+                {isEn ? "Book appointment online" : "Rezervovať termín online"}
               </a>
               <a
                 href="https://services.bookio.com/baan-thai-massage-galanta/gift-cards"
@@ -217,7 +222,7 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
                 className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-brand-peach-light/40 hover:bg-brand-peach-light/60 text-brand-green-dark border border-brand-peach-dark/30 font-medium tracking-wide transition-all text-sm text-center cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Gift className="w-4 h-4 text-brand-peach-dark" />
-                Kúpiť darčekový poukaz
+                {isEn ? "Gift vouchers" : "Kúpiť darčekový poukaz"}
               </a>
             </div>
           </div>
@@ -226,18 +231,10 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           <div className="lg:col-span-5">
             <div className="relative rounded-[2rem] overflow-hidden aspect-[4/3] sm:aspect-[1/1] shadow-xl border border-brand-peach-light/30 group">
               <img
-                src={massage.image}
-                alt={massage.title}
+                src={m.image}
+                alt={m.title}
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
-              <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md rounded-xl p-3 text-xs text-brand-green-dark flex items-center justify-between">
-                <span className="font-medium flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#af8a54]" />
-                  Certifikovaná masérka Kay
-                </span>
-                <span className="text-text-muted">Hody, Galanta</span>
-              </div>
             </div>
           </div>
         </div>
@@ -251,9 +248,9 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           <section className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-peach-light/30 shadow-sm space-y-4">
             <h2 className="text-2xl font-serif text-brand-green-dark flex items-center gap-2.5">
               <Sparkles className="w-5 h-5 text-[#af8a54]" />
-              O procedúre & jej podstata
+              {isEn ? "About the procedure & essence" : "O procedúre & jej podstata"}
             </h2>
-            {massage.overview.map((para, i) => (
+            {m.overview.map((para, i) => (
               <p key={i} className="text-text-muted font-light leading-relaxed text-base">
                 {para}
               </p>
@@ -264,10 +261,10 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           <section className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-peach-light/30 shadow-sm space-y-4">
             <h2 className="text-2xl font-serif text-brand-green-dark flex items-center gap-2.5">
               <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-              Zdravotné a regeneračné účinky
+              {isEn ? "Health and regenerative benefits" : "Zdravotné a regeneračné účinky"}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-              {massage.benefits.map((benefit, i) => (
+              {m.benefits.map((benefit, i) => (
                 <div key={i} className="flex items-start gap-3 p-3.5 rounded-2xl bg-brand-peach-light/15 border border-brand-peach-light/40">
                   <CheckCircle2 className="w-4 h-4 text-brand-green-dark shrink-0 mt-0.5" />
                   <span className="text-sm text-text-dark font-light">{benefit}</span>
@@ -280,10 +277,10 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           <section className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-peach-light/30 shadow-sm space-y-4">
             <h2 className="text-2xl font-serif text-brand-green-dark flex items-center gap-2.5">
               <Clock className="w-5 h-5 text-[#af8a54]" />
-              Ako masáž prebieha krok za krokom
+              {isEn ? "How the massage works step-by-step" : "Ako masáž prebieha krok za krokom"}
             </h2>
             <div className="space-y-4 pt-1">
-              {massage.howItWorks.map((step, idx) => (
+              {m.howItWorks.map((step, idx) => (
                 <div key={idx} className="flex items-start gap-4">
                   <span className="w-7 h-7 rounded-full bg-brand-green-dark text-white text-xs font-semibold flex items-center justify-center shrink-0 mt-0.5">
                     {idx + 1}
@@ -300,20 +297,20 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <section className="bg-brand-peach-light/20 rounded-3xl p-6 border border-brand-peach-light/50 space-y-3">
               <h3 className="text-lg font-serif font-medium text-brand-green-dark">
-                Ako sa pripraviť
+                {isEn ? "How to prepare" : "Ako sa pripraviť"}
               </h3>
               <p className="text-sm text-text-muted font-light leading-relaxed">
-                {massage.preparation}
+                {m.preparation}
               </p>
             </section>
 
             <section className="bg-amber-50/70 rounded-3xl p-6 border border-amber-200/60 space-y-3">
               <h3 className="text-lg font-serif font-medium text-amber-900 flex items-center gap-2">
                 <AlertCircle className="w-4 h-4 text-amber-700" />
-                Kedy zvoliť inú procedúru
+                {isEn ? "When to choose another treatment" : "Kedy zvoliť inú procedúru"}
               </h3>
               <ul className="text-xs text-amber-950/80 space-y-1.5 list-disc list-inside font-light">
-                {massage.contraindications.map((ci, i) => (
+                {m.contraindications.map((ci, i) => (
                   <li key={i}>{ci}</li>
                 ))}
               </ul>
@@ -326,20 +323,26 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
           <div className="bg-brand-green-dark text-white rounded-3xl p-6 sm:p-8 space-y-6 shadow-xl sticky top-28">
             <div className="space-y-2">
               <p className="text-xs uppercase tracking-widest text-brand-green-light font-semibold">
-                Súkromné štúdio
+                {isEn ? "Private Studio" : "Súkromné štúdio"}
               </p>
               <h3 className="text-xl sm:text-2xl font-serif font-light">
                 Baan Thai Massage Galanta
               </h3>
               <p className="text-xs text-white/80 font-light leading-relaxed">
-                Štúdio v tichej záhrade v Hodoch pri Galante vyhradené počas masáže výhradne pre vás.
+                {isEn 
+                  ? "Private studio in a quiet garden in Hody, Galanta, reserved exclusively for you during your session."
+                  : "Štúdio v tichej záhrade v Hodoch pri Galante vyhradené počas masáže výhradne pre vás."}
               </p>
             </div>
 
             <div className="space-y-3 text-xs border-y border-white/10 py-4">
               <div className="flex items-center gap-2.5 text-white/90">
                 <MapPin className="w-4 h-4 text-brand-green-light shrink-0" />
-                <span>Hody 1679, 924 01 Galanta (parkovanie priamo pred salónom)</span>
+                <span>
+                  {isEn 
+                    ? "Hody 1679, 924 01 Galanta (free parking right outside)" 
+                    : "Hody 1679, 924 01 Galanta (parkovanie priamo pred salónom)"}
+                </span>
               </div>
               <div className="flex items-center gap-2.5 text-white/90">
                 <Phone className="w-4 h-4 text-brand-green-light shrink-0" />
@@ -347,13 +350,17 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
               </div>
               <div className="flex items-center gap-2.5 text-white/90">
                 <Clock className="w-4 h-4 text-brand-green-light shrink-0" />
-                <span>Po – Pia: 10:00 – 20:00 | So – Ne: 10:00 – 18:00</span>
+                <span>
+                  {isEn 
+                    ? "Mon – Fri: 10:00 – 20:00 | Sat – Sun: 10:00 – 18:00"
+                    : "Po – Pia: 10:00 – 20:00 | So – Ne: 10:00 – 18:00"}
+                </span>
               </div>
             </div>
 
             <div className="space-y-3">
               <a
-                href="https://services.bookio.com/baan-thai-massage-galanta/widget?lang=sk"
+                href={bookioUrl}
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => {
@@ -365,10 +372,12 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
                 }}
                 className="w-full inline-flex items-center justify-center gap-2 py-3.5 px-4 rounded-full bg-[#af8a54] hover:bg-[#977340] text-white text-sm font-semibold tracking-wide transition-all shadow-md text-center cursor-pointer"
               >
-                Rezervovať cez Bookio
+                {isEn ? "Book via Bookio" : "Rezervovať cez Bookio"}
               </a>
               <p className="text-[11px] text-center text-white/70">
-                Voľné termíny v reálnom čase, bezplatné zrušenie do 24h vopred.
+                {isEn 
+                  ? "Real-time availability, free cancellation up to 24h prior."
+                  : "Voľné termíny v reálnom čase, bezplatné zrušenie do 24h vopred."}
               </p>
             </div>
           </div>
@@ -379,45 +388,48 @@ export function MassageDetailPage({ massage, onBack, onSelectOtherMassage }: Mas
       <section className="border-t border-brand-peach-light/40 pt-12">
         <div className="text-center max-w-xl mx-auto mb-8">
           <p className="text-xs uppercase tracking-widest text-[#af8a54] font-semibold mb-1">
-            Ďalšie masáže v našej ponuke
+            {isEn ? "Other massages in our offer" : "Ďalšie masáže v našej ponuke"}
           </p>
           <h2 className="text-2xl sm:text-3xl font-serif text-brand-green-dark">
-            Objavte ďalšie terapie v Galante
+            {isEn ? "Discover more therapies in Galanta" : "Objavte ďalšie terapie v Galante"}
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {otherMassages.map((item) => (
-            <div
-              key={item.slug}
-              onClick={() => onSelectOtherMassage(item.slug)}
-              className="bg-white rounded-3xl p-5 border border-brand-peach-light/40 shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
-            >
-              <div>
-                <div className="rounded-2xl overflow-hidden aspect-[16/10] mb-4">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
+          {otherMassages.map((item) => {
+            const itemLocalized = getLocalizedMassage(item, i18n.language);
+            return (
+              <div
+                key={item.slug}
+                onClick={() => onSelectOtherMassage(item.slug)}
+                className="bg-white rounded-3xl p-5 border border-brand-peach-light/40 shadow-sm hover:shadow-md transition-all cursor-pointer group flex flex-col justify-between"
+              >
+                <div>
+                  <div className="rounded-2xl overflow-hidden aspect-[16/10] mb-4">
+                    <img
+                      src={item.image}
+                      alt={itemLocalized.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <h3 className="font-serif text-lg text-brand-green-dark group-hover:text-[#af8a54] transition-colors mb-2">
+                    {itemLocalized.title}
+                  </h3>
+                  <p className="text-xs text-text-muted font-light line-clamp-2 leading-relaxed mb-4">
+                    {itemLocalized.shortDesc}
+                  </p>
                 </div>
-                <h3 className="font-serif text-lg text-brand-green-dark group-hover:text-[#af8a54] transition-colors mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-xs text-text-muted font-light line-clamp-2 leading-relaxed mb-4">
-                  {item.shortDesc}
-                </p>
+                <div className="flex items-center justify-between text-xs pt-3 border-t border-brand-peach-light/30">
+                  <span className="font-serif font-bold text-brand-green-dark text-sm">
+                    {isEn ? `from €${item.durationOptions[0].price}` : `od ${item.durationOptions[0].price} €`}
+                  </span>
+                  <span className="text-[#af8a54] font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+                    {isEn ? "View details →" : "Pozrieť detail →"}
+                  </span>
+                </div>
               </div>
-              <div className="flex items-center justify-between text-xs pt-3 border-t border-brand-peach-light/30">
-                <span className="font-serif font-bold text-brand-green-dark text-sm">
-                  od {item.durationOptions[0].price} €
-                </span>
-                <span className="text-[#af8a54] font-medium group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
-                  Pozrieť detail →
-                </span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
     </article>
